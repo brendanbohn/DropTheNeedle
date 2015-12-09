@@ -20,7 +20,7 @@ angular.module('myApp', ['ui.router',
         controller: 'QuizCtrl'
       });
 
-    $urlRouterProvider.otherwise("/state1");
+    $urlRouterProvider.otherwise("/");
 
     $locationProvider.html5Mode({
         enabled: true,

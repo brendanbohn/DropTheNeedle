@@ -66,7 +66,7 @@ app.post('/api/playlist/search', function(req,res) {
   });
 });
 
-app.get('/get-tracks', function(req,res) {
+app.get('/get-tracks/:params_id', function(req,res) {
   var url = 'https://api.spotify.com/v1/playlists/' + req.params.playlist_id +'/tracks';
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {

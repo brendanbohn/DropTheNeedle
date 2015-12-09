@@ -15,7 +15,7 @@ angular.module('myApp', ['ui.router',
         controller: 'PlaylistSearch'
       })
       .state('quiz', {
-        url:"/quiz",
+        url:"/quiz/:playlist_id",
         templateUrl: 'templates/quiz',
         controller: 'QuizCtrl'
       });
@@ -27,7 +27,7 @@ angular.module('myApp', ['ui.router',
         requireBase: false
     });
   }]);
-  
+
 angular.module('myApp.controllers', [])
   .controller('MainCtrl', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
     // INITIALIZATION AND NAVBAR LOGIC

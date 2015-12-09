@@ -13,6 +13,11 @@ angular.module('myApp', ['ui.router',
         url: "/",
         templateUrl: 'templates/posts-index',
         controller: 'PlaylistSearch'
+      })
+      .state('quiz', {
+        url:"/quiz",
+        templateUrl: 'templates/quiz',
+        controller: 'QuizCtrl'
       });
 
     $urlRouterProvider.otherwise("/state1");
@@ -21,4 +26,9 @@ angular.module('myApp', ['ui.router',
         enabled: true,
         requireBase: false
     });
+  }]);
+  
+angular.module('myApp.controllers', [])
+  .controller('MainCtrl', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
+    // INITIALIZATION AND NAVBAR LOGIC
   }]);

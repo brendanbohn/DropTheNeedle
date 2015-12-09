@@ -1,5 +1,5 @@
 {
-  "name": "seed-mean-html",
+  "name": "drop-the-needle",
   "version": "1.0.0",
   "description": "MEAN seed project",
   "main": "server.js",
@@ -22,7 +22,8 @@
     "bower": "^1.4.1",
     "ejs": "^2.3.3",
     "express": "^4.13.3",
-    "mongoose": "^4.0.2"
+    "mongoose": "^4.0.2",
+    "request": "^2.67.0"
   },
   "directories": {
     "test": "test"

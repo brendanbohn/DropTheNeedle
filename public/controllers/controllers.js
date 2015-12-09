@@ -31,10 +31,7 @@ angular.module('myApp.controllers', [])
 
     // CREATE A POST    
     $scope.createPost = function() {
-      // make a POST request to create the post with $http
-      // sned the scope's post object as data
-
-      // reset scope's post object
+   
       
     };
 

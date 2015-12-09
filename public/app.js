@@ -12,7 +12,7 @@ angular.module('myApp', ['ui.router',
       .state('posts', {
         url: "/",
         templateUrl: 'templates/posts-index',
-        controller: 'PostsIndexCtrl'
+        controller: 'PlaylistSearch'
       });
 
     $urlRouterProvider.otherwise("/state1");

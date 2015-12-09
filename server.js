@@ -7,10 +7,10 @@ var express = require('express');
 var app = express();
 
 // other modules and middleware
+var request = require('request');
 var path = require('path');   // built-in module for dealing with file paths
 var bodyParser = require('body-parser');  // parse form data into req.body
 var mongoose = require('mongoose');   // object document mapper
-
 // configure bodyparser
 app.use(bodyParser.urlencoded({
   extended: true
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // connect to database
-var dbName = 'seed-mean-html';
+var dbName = 'drop-the-needle';
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/' + dbName);    
 
 // serve public folder as static assets on the root route
@@ -51,7 +51,20 @@ app.get('/templates/:name', routes.templates);
 
 // API ROUTES
 // post routes
-app.use('/api/posts', routes.postRouter);
+
+
+
+// Spotify Query
+app.post('/api/playlist/search', function(req,res) {
+  console.log(req.body);
+  var url = "https://api.spotify.com/v1/search?q=" + req.body.term + "&type=playlist";
+  request(url, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body); // Show the HTML for the Google homepage. 
+    }
+    res.send(body);
+  });
+});
 
 
 // ALL OTHER ROUTES (ANGULAR HANDLES)

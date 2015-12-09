@@ -66,6 +66,17 @@ app.post('/api/playlist/search', function(req,res) {
   });
 });
 
+app.get('/get-tracks/:params_id', function(req,res) {
+  var url = 'https://api.spotify.com/v1/playlists/' + req.params.playlist_id +'/tracks';
+  request(url, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body); // Show the HTML for the Google homepage. 
+    }
+    res.send(body);
+  });
+});
+
+
 
 // ALL OTHER ROUTES (ANGULAR HANDLES)
 // redirect all other paths to index

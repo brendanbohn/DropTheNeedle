@@ -1,5 +1,12 @@
+
+
 angular.module('myApp.controllers')
-.controller('PlaylistSearch', function ($scope, $http, $window) {
+.service('Playlist', function () {
+	this.playlistId =  function (playlist_id) {
+		return playlist_id;
+	};
+})
+.controller('PlaylistSearch', ['$scope', '$http', '$window', function ($scope, $http, $window) {
 
 	//searching spotify playlist
 	$scope.searchPlaylist = function() {
@@ -18,4 +25,8 @@ angular.module('myApp.controllers')
 		});
 	};
 
-});
+	// $scope.passPlaylist = function (p) {
+	// 	Playlist.playlistId(p.id);
+	// };
+
+}]);

@@ -89,7 +89,7 @@ app.get('*',  routes.index);
 
 // SERVER
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var port = process.env.PORT || 1337;
+var port = process.env.PORT || 3000;
 
 var server = require('http').createServer(app);
 server = server.listen(port);

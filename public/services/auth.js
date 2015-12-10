@@ -5,12 +5,12 @@
 		var CLIENT_ID = '';
 		var REDIRECT_URI = '';
 
-		if (location.host == 'localhost:1337') {
+		if (location.host == 'localhost:3000') {
 			CLIENT_ID =	'7a97d4862b9b46eb84827c9e6bb32d39';
-			REDIRECT_URI = 'http://localhost:1337/callback';
+			REDIRECT_URI = 'http://localhost:3000/callback';
 		} else {
 			CLIENT_ID = '7a97d4862b9b46eb84827c9e6bb32d39';
-			REDIRECT_URI = 'http://localhost:1337/callback';
+			REDIRECT_URI = 'http://localhost:3000/callback';
 		}
 
 		function getLoginURL(scopes) {

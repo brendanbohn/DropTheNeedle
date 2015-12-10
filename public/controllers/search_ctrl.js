@@ -1,12 +1,11 @@
-
-
 angular.module('myApp.controllers')
 .service('Playlist', function () {
 	this.playlistId =  function (playlist_id) {
 		return playlist_id;
 	};
 })
-.controller('PlaylistSearchController', ['$scope', '$http', '$window', function ($scope, $http, $window) {
+.controller('PlaylistSearchController', ['$scope', '$http', '$window', 'Auth','$rootScope', function ($scope, $http, $window, Auth, $rootScope) {
+
 
 	//searching spotify playlist
 	$scope.searchPlaylist = function() {

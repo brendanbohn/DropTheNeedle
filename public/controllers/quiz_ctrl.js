@@ -1,8 +1,6 @@
-
-
 angular.module('myApp.controllers')
 
-.controller('QuizCtrl', [ '$scope', '$http', '$window', '$stateParams', function ($scope, $http, $window, $stateParams) {
+.controller('QuizController', [ '$scope', '$http', '$window', '$stateParams', function ($scope, $http, $window, $stateParams) {
 	
 	//$stateParams gets the params from the 'quiz' state defined in app.js, being set in the form with ui-sref
 	console.log($stateParams.playlist_id);

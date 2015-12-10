@@ -34,6 +34,10 @@ var ejs = require('ejs');
 app.engine('html', ejs.renderFile); 
 app.set('view engine', 'html');
 
+//env for spotify keys
+// require('dotenv').load();
+// var spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
+// var spotify_client_secret = process.env.SPOTIFY_SECRET_KEY;
 /*** ROUTES ***/
 var routes = require('./routes');
 

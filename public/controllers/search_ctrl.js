@@ -6,7 +6,7 @@ angular.module('myApp.controllers')
 		return playlist_id;
 	};
 })
-.controller('PlaylistSearch', ['$scope', '$http', '$window', function ($scope, $http, $window) {
+.controller('PlaylistSearchController', ['$scope', '$http', '$window', function ($scope, $http, $window) {
 
 	//searching spotify playlist
 	$scope.searchPlaylist = function() {

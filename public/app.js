@@ -10,13 +10,8 @@ angular.module('myApp', ['ui.router',
 
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
-      .state('login', {
-        url: "/",
-        templateUrl: 'templates/loginview',
-        controller: 'LoginController'
-      })
       .state('home', {
-        url: "/home",
+        url: "/",
         templateUrl: 'templates/home',
         controller: 'PlaylistSearchController'
       })
@@ -47,16 +42,30 @@ angular.module('myApp', ['ui.router',
 
 
 angular.module('myApp.controllers', [])
-  .controller('MainCtrl', ['$rootScope', '$scope', '$location', 'Auth', '$window', '$state',function ($rootScope, $scope, $location, Auth, $window, $state) {
+  .controller('MainCtrl', ['$rootScope', '$scope', 'Auth', '$window', function ($rootScope, $scope, Auth, $window) {
     // INITIALIZATION AND NAVBAR LOGIC
 
     $window.addEventListener("message", function(event) {
-          console.log('got postmessage', event);
-          var hash = JSON.parse(event.data);
-          if (hash.type == 'access_token') {
-            Auth.setAccessToken(hash.access_token, hash.expires_in || 60);
-            // checkUser(true);
-            $state.go('home');
+      var hash = JSON.parse(event.data);
+        if (hash.type == 'access_token') {
+          Auth.setAccessToken(hash.access_token, hash.expires_in || 60);  
+          
+          if(Auth.getAccessToken()) {
+            $rootScope.isLoggedIn = true;
+            console.log("true");  
+          } else {
+            $rootScope.isLoggedIn = false;
+            console.log("false");
           }
-          }, false);
+          $scope.$apply();
+        }
+      }, false);
+
+          if(Auth.getAccessToken()) {
+            $rootScope.isLoggedIn = true;
+            console.log("true");  
+          } else {
+            $rootScope.isLoggedIn = false;
+            console.log("false");
+          }
   }]);

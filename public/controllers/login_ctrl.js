@@ -1,14 +1,7 @@
 angular.module('myApp.controllers')
 
-	.controller('LoginController', function($scope, Auth, $state) {
-		if(Auth.getAccessToken()) {
-			$scope.isLoggedIn = true;
-			console.log("true");
-			$state.go('home');		
-		} else {
-			$scope.isLoggedIn = false;
-			console.log("false");
-		}
+	.controller('LoginController', ['$scope', 'Auth','$rootScope', function ($scope, Auth, $rootScope) {
+		
 
 		$scope.login = function() {
 			// do login!
@@ -21,7 +14,8 @@ angular.module('myApp.controllers')
 		$scope.logout = function() {
 			console.log('do logout...');
 			Auth.setAccessToken('', 0);
-			$scope.$emit('logout');
+			// $scope.$emit('logout');
+			$rootScope.isLoggedIn = false;
 		};
-	});
+	}]);
 

@@ -4,7 +4,7 @@ angular.module('myApp.controllers')
 		return playlist_id;
 	};
 })
-.controller('PlaylistSearchController', ['$scope', '$http', '$window', 'Auth','$rootScope', 'API', function ($scope, $http, $window, Auth, $rootScope, API) {
+.controller('PlaylistSearchController', ['$scope', '$http', '$window', 'Auth','$rootScope', 'API', 'PlaylistId', function ($scope, $http, $window, Auth, $rootScope, API, PlaylistId) {
 
 
 	//searching spotify playlist
@@ -21,6 +21,11 @@ angular.module('myApp.controllers')
 		});
 	};
 
+
+	$scope.setPlaylistScope = function(playlist, owner) {
+		PlaylistId.setPlaylistId(playlist);
+		PlaylistId.setOwnerId(owner);
+	};
 	
 
 }]);

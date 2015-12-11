@@ -4,28 +4,28 @@ angular.module('myApp.controllers')
 		return playlist_id;
 	};
 })
-.controller('PlaylistSearchController', ['$scope', '$http', '$window', 'Auth','$rootScope', function ($scope, $http, $window, Auth, $rootScope) {
+.controller('PlaylistSearchController', ['$scope', '$http', '$window', 'Auth','$rootScope', 'API', 'PlaylistId', function ($scope, $http, $window, Auth, $rootScope, API, PlaylistId) {
 
 
 	//searching spotify playlist
 	$scope.searchPlaylist = function() {
-
-		var term = { term: $scope.term };
-
-		$http.post($window.location.origin + '/api/playlist/search' , term)
+		var term = $scope.term;
+		console.log(term);
+		$http.get("https://api.spotify.com/v1/search?q=" + term + "&type=playlist")
 		.success( function (data) {
+			console.log(data);
 			$scope.playlists = data.playlists.items;
-			console.log(data.playlists.items[1].images[2].url);
-			console.log(data.playlists.items);
-			$scope.term = null;
 		})
 		.error( function (data) {
-			console.log('ERROR' + data);
+			console.log(data);
 		});
 	};
 
-	// $scope.passPlaylist = function (p) {
-	// 	Playlist.playlistId(p.id);
-	// };
+
+	$scope.setPlaylistScope = function(playlist, owner) {
+		PlaylistId.setPlaylistId(playlist);
+		PlaylistId.setOwnerId(owner);
+	};
+	
 
 }]);

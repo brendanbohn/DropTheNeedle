@@ -25,10 +25,13 @@
   <div id='playlist-results'>
     <div class="row"></div>
       <div class="col-xs-3" ng-repeat="playlist in playlists">
-        <a ui-sref="quiz({playlist_id: playlist.id})">
-          <img ng-src="{{playlist.images[2].url}}">
-          <p>{{playlist.name}}</p>
-        </a>
+        <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id)">
+          <a ui-sref="quiz" >
+            <!-- <input type="hidden" value="{{playlist.id}}"> -->
+            <img ng-src="{{playlist.images[2].url}}">
+            <p>{{playlist.name}}</p>
+          </a>
+        </div>
       </div>
     </div>
   </div>

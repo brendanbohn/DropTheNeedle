@@ -58,10 +58,11 @@ app.get('/templates/:name', routes.templates);
 
 
 
-// Spotify Query
-app.post('/api/playlist/search', function(req,res) {
-  console.log(req.body);
-  var url = "https://api.spotify.com/v1/search?q=" + req.body.term + "&type=playlist";
+// Spotify Queries
+
+//GET TRACKS INSIDE PLAYLIST
+app.get('/get-tracks/user_id/:user_id/playlist_id/:playlist_id', function(req,res) {
+  var url = 'https://api.spotify.com/v1/users/' + req.params.user_id +'/playlists/' + req.params.playlist_id +'/tracks';
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body); // Show the HTML for the Google homepage. 
@@ -70,8 +71,9 @@ app.post('/api/playlist/search', function(req,res) {
   });
 });
 
-app.get('/get-tracks/:params_id', function(req,res) {
-  var url = 'https://api.spotify.com/v1/playlists/' + req.params.playlist_id +'/tracks';
+//GET CURRENT USER
+app.get('getCurrentUser', function(req, res) {
+  var url  = 'https://api.spotify.com/v1/me';
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body); // Show the HTML for the Google homepage. 
@@ -79,8 +81,6 @@ app.get('/get-tracks/:params_id', function(req,res) {
     res.send(body);
   });
 });
-
-
 
 // ALL OTHER ROUTES (ANGULAR HANDLES)
 // redirect all other paths to index

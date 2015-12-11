@@ -42,7 +42,7 @@ angular.module('myApp', ['ui.router',
 
 
 angular.module('myApp.controllers', [])
-  .controller('MainCtrl', ['$rootScope', '$scope', 'Auth', '$window', function ($rootScope, $scope, Auth, $window) {
+  .controller('MainCtrl', ['$rootScope', '$scope', 'Auth', '$window', '$http', 'API', function ($rootScope, $scope, Auth, $window, $http, API) {
     // INITIALIZATION AND NAVBAR LOGIC
 
     $window.addEventListener("message", function(event) {
@@ -52,7 +52,10 @@ angular.module('myApp.controllers', [])
           
           if(Auth.getAccessToken()) {
             $rootScope.isLoggedIn = true;
-            console.log("true");  
+            API.getMe().then(function(userInfo){
+              console.log(userInfo);
+              $rootScope.spotifyUser = userInfo;
+            });
           } else {
             $rootScope.isLoggedIn = false;
             console.log("false");
@@ -68,4 +71,6 @@ angular.module('myApp.controllers', [])
             $rootScope.isLoggedIn = false;
             console.log("false");
           }
+
+
   }]);

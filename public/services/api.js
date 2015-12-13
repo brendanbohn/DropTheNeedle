@@ -161,7 +161,7 @@ module.factory('API', function(Auth, $q, $http) {
 					'Authorization': 'Bearer ' + Auth.getAccessToken()
 				}
 			}).success(function(r) {
-				console.log('got playlist tracks', r);
+				// console.log('got playlist tracks', r);
 				ret.resolve(r);
 			});
 			return ret.promise;
@@ -201,16 +201,17 @@ module.factory('API', function(Auth, $q, $http) {
 		},
 
 		getTrack: function(trackid) {
-			var ret = $q.defer();
-			$http.get(baseUrl + '/tracks/' + encodeURIComponent(trackid), {
+			
+			return $http.get(baseUrl + '/tracks/' + encodeURIComponent(trackid), {
 				headers: {
 					'Authorization': 'Bearer ' + Auth.getAccessToken()
 				}
-			}).success(function(r) {
-				console.log('got track', r);
-				ret.resolve(r);
-			});
-			return ret.promise;
+			})
+				.catch(function(err) {
+					console.error(err);
+				});
+
+		
 		},
 
 		getTracks: function(trackids) {

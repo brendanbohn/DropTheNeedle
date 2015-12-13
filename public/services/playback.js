@@ -60,7 +60,7 @@ module.factory('Playback', function($rootScope, API, $interval) {
 			_playing = false;
 			_track = '';
 			disableTick();
-			$rootScope.$emit('endtrack');
+			$rootScope.$emit('poopoo');
 		}, false);
 	}
 
@@ -89,11 +89,11 @@ module.factory('Playback', function($rootScope, API, $interval) {
 			audiotag.pause();
 
 			API.getTrack(trackid).then(function(trackdata) {
-				console.log('playback got track', trackdata);
+				// console.log('playback got track', trackdata);
 				createAndPlayAudio(trackdata.preview_url, function() {
 					_trackdata = trackdata;
 					_progress = 0;
-					$rootScope.$emit('playerchanged');
+					// $rootScope.$emit('playerchanged');
 					$rootScope.$emit('trackprogress');
 					enableTick();
 				});

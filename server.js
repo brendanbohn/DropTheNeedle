@@ -38,38 +38,17 @@ app.set('view engine', 'html');
 // require('dotenv').load();
 // var spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
 // var spotify_client_secret = process.env.SPOTIFY_SECRET_KEY;
+
 /*** ROUTES ***/
 var routes = require('./routes');
 
 // INDEX and TEMPLATE ROUTES
 app.get('/', routes.index);
-// app.get('/', function(request, response){
-//   response.render('index');
-// });
 
 app.get('/templates/:name', routes.templates);
-// app.get('/templates/:name', function(request, response){
-//   var name = request.params.name;
-//   response.render('templates/' + name);
-// });
-
-// API ROUTES
-// post routes
 
 
 
-// Spotify Queries
-
-//GET TRACKS INSIDE PLAYLIST
-app.get('/get-tracks/user_id/:user_id/playlist_id/:playlist_id', function(req,res) {
-  var url = 'https://api.spotify.com/v1/users/' + req.params.user_id +'/playlists/' + req.params.playlist_id +'/tracks';
-  request(url, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log(body); // Show the HTML for the Google homepage. 
-    }
-    res.send(body);
-  });
-});
 
 //GET CURRENT USER
 app.get('getCurrentUser', function(req, res) {

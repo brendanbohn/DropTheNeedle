@@ -38,39 +38,3 @@ angular.module('myApp', ['ui.router',
         requireBase: false
     });
   }]);
-
-
-
-angular.module('myApp.controllers', [])
-  .controller('MainCtrl', ['$rootScope', '$scope', 'Auth', '$window', '$http', 'API', function ($rootScope, $scope, Auth, $window, $http, API) {
-    // INITIALIZATION AND NAVBAR LOGIC
-
-    $window.addEventListener("message", function(event) {
-      var hash = JSON.parse(event.data);
-        if (hash.type == 'access_token') {
-          Auth.setAccessToken(hash.access_token, hash.expires_in || 60);  
-          
-          if(Auth.getAccessToken()) {
-            $rootScope.isLoggedIn = true;
-            API.getMe().then(function(userInfo){
-              console.log(userInfo);
-              $rootScope.spotifyUser = userInfo;
-            });
-          } else {
-            $rootScope.isLoggedIn = false;
-            console.log("false");
-          }
-          $scope.$apply();
-        }
-      }, false);
-
-          if(Auth.getAccessToken()) {
-            $rootScope.isLoggedIn = true;
-            console.log("true");  
-          } else {
-            $rootScope.isLoggedIn = false;
-            console.log("false");
-          }
-
-
-  }]);

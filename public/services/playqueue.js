@@ -24,10 +24,11 @@ var module = angular.module('myApp');
 				});
 				$rootScope.$emit('playqueuechanged');
 			},
-			playFrom: function(index) {
-				_position = index;
-				$rootScope.$emit('playqueuechanged');
-				Playback.startPlaying(_queue[_position]);
+			playFrom: function(queue, position) {
+				console.log('playFrom - position', position);
+				console.log('playFrom - queue', queue);
+				// $rootScope.$emit('playqueuechanged');
+				Playback.startPlaying(queue[position]);
 			},
 			getQueue: function() {
 				return _queue;

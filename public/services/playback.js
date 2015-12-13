@@ -78,7 +78,7 @@ module.factory('Playback', function($rootScope, API, $interval) {
 			_trackdata = null;
 			_playing = true;
 			_progress = 0;
-			var trackid = trackuri.split(':')[2];
+			// var trackid = trackuri.split(':')[2];
 
 			// workaround to be able to play on mobile
 			// we need to play as a response to a touch event
@@ -88,15 +88,15 @@ module.factory('Playback', function($rootScope, API, $interval) {
 			audiotag.play();
 			audiotag.pause();
 
-			API.getTrack(trackid).then(function(trackdata) {
+			API.getTrack(trackuri).then(function(trackdata) {
 				console.log('playback got track', trackdata);
-				createAndPlayAudio(trackdata.preview_url, function() {
-					_trackdata = trackdata;
-					_progress = 0;
-					$rootScope.$emit('playerchanged');
-					$rootScope.$emit('trackprogress');
-					enableTick();
-				});
+				return	createAndPlayAudio(trackdata.preview_url, function() {
+						_trackdata = trackdata;
+						_progress = 0;
+						$rootScope.$emit('playerchanged');
+						$rootScope.$emit('trackprogress');
+						enableTick();
+					});
 			});
 		},
 		stopPlaying: function() {

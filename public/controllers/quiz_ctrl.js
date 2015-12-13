@@ -15,9 +15,10 @@ angular.module('myApp.controllers')
 
 		$scope.toQueue = [];
 		$scope.tracklist.forEach( function(object){
-			$scope.toQueue.push(object.track.uri);
+			var trackid = object.track.uri.split(':')[2];
+			$scope.toQueue.push(trackid);
 		});
-
+		console.log('toQueue', $scope.toQueue);
 		PlayQueue._queue = $scope.toQueue;
 		Playback.startPlaying(PlayQueue._queue[0]);
 	});	

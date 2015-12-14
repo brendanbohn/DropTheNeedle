@@ -31,12 +31,12 @@ module.factory('API', function(Auth, $q, $http) {
 			}).success(function(r) {
 				console.log('got userinfo', r);
 				//ret.resolve(r.id);
-				ret.resolve('test_1');
+				ret.resolve(r);
 			}).error(function(err) {
 				console.log('failed to get userinfo', err);
 				//ret.reject(err);
 				//
-				ret.resolve('test_1');
+				ret.resolve(err);
 			});
 			return ret.promise;
 		},
@@ -94,6 +94,7 @@ module.factory('API', function(Auth, $q, $http) {
 		},
 
 		getPlaylists: function(username) {
+			console.log(username);
 			var limit = 50;
 			var ret = $q.defer();
 			var playlists = [];
@@ -319,9 +320,10 @@ module.factory('API', function(Auth, $q, $http) {
 
 		getFeaturedPlaylists: function(country, timestamp) {
 			var ret = $q.defer();
-			$http.get(baseUrl + '/browse/featured-playlists?country=' +
-				encodeURIComponent(country) +
-				'&timestamp=' + encodeURIComponent(timestamp), {
+			$http.get(baseUrl + '/browse/featured-playlists?country=US', {
+				// encodeURIComponent(country) +
+				// '&timestamp=' + encodeURIComponent(Date.now())
+			
 				headers: {
 					'Authorization': 'Bearer ' + Auth.getAccessToken()
 				}

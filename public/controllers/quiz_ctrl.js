@@ -11,6 +11,7 @@ angular.module('myApp.controllers')
 	var playlistTracks = [];
 	var shortenedPlaylist = [];
 	var shortenedPlaylistURIs = [];
+	var currentlyPlaying = {};
 
 	//gets the tracks for playlist clicked on search page
 	API.getPlaylistTracks(user_id, playlist).then(function (data) {
@@ -41,7 +42,8 @@ angular.module('myApp.controllers')
 			}
 			//plays the first track in the resolved promiseArray
 			createAndPlayAudio(promiseArray[0].$$state.value.preview_url);
-			
+			currentlyPlaying = promiseArray[0].$$state.value;
+			console.log('currentlyPlaying', currentlyPlaying);
 		});
 
 	});	
@@ -89,7 +91,8 @@ angular.module('myApp.controllers')
 		if(position < promiseArray.length-1){
 			position = position + 1;
 			createAndPlayAudio(promiseArray[position].$$state.value.preview_url);
-			console.log("position ", position);
+			currentlyPlaying = promiseArray[position].$$state.value;
+			console.log("currentlyPlaying ", currentlyPlaying);
 		}
 	}
 
@@ -106,11 +109,18 @@ angular.module('myApp.controllers')
 			}
 		}
 	}
-	
+
 	//gets random int for setting track list
 	function getRandomInt(min, max) {
 	  return Math.floor(Math.random() * (max - min)) + min;
 	}
+
+
+	//QUIZ FORM, ANSWER COMPARISON, AND SCORE KEEPING
+	$scope.answer = ''; 
+
+
+
 
 }]);
 

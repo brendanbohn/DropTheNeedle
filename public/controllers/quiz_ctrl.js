@@ -7,7 +7,6 @@ angular.module('myApp.controllers')
 	var user_id = PlaylistId.getOwnerId();
 	var playlist = PlaylistId.getPlaylistId();
 	var promise_array = [];
-	var hasTracks = false;
 	var position = 0;
 
 	//gets the tracks for playlist clicked on search page
@@ -61,16 +60,18 @@ angular.module('myApp.controllers')
 			console.log('audiotag ended');
 			_playing = false;
 			_track = '';
-		
-			while(position < promise_array.length){
+			
+			audiotag.removeEventListener('ended', playNextSong(), false);
+			// disableTick();
+			// $rootScope.$emit('endtrack');
+		}, false);
+	}
+		function playNextSong () {
+			if(position < promise_array.length){
 				position = position + 1;
 				createAndPlayAudio(promise_array[position].$$state.value.preview_url);
 			}
-			// disableTick();
-			// $rootScope.$emit('endtrack');
-		}, true);
-	}
-
+		}
 	//sets quiz length to a max of 20 songs. 
 	function setTrackList (array) {
 		$scope.tracklist = [];

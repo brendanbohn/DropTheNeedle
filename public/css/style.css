@@ -1,1 +1,76 @@
-/*PUT YOUR STYLES HERE*/
+html {
+	height: 100vh;
+	width: 100vw;
+}
+body {
+	height: 100vh;
+	width: 100vw;
+	font-family: Roboto;
+	background: linear-gradient(135deg, #262626, #222326);
+	color: white;
+}
+.loginview {
+	-webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+	   -moz-animation: fadein 2s; /* Firefox < 16 */
+	    -ms-animation: fadein 2s; /* Internet Explorer */
+	     -o-animation: fadein 2s; /* Opera < 12.1 */
+	        animation: fadein 2s;
+}
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.loginview h1 {
+	font-weight: 100;
+	font-size: 75px;
+	margin: 75px 0 40px 0;
+	padding: 0 0 25px 0;
+	border-bottom: 1px solid #D9D7DB;
+}
+.loginview p {
+	font-weight: 300;
+	margin: 0 0 50px 0;
+}
+.login-signup a {
+	color: white;
+	font-weight: 300;
+	padding: 50px 40px;
+}
+.login-signup a:hover {
+	text-decoration: none;
+	font-weight: 300;
+	padding: 50px 40px;
+}
+.login-signup {
+	background-color: #1ED760;
+	padding: 10px 0;
+	border-radius: 5px;
+	margin: 0 20px 0 20px;
+}
+.login-signup:hover {
+	cursor: pointer;
+	background-color: #4FC773;
+	padding: 10px 0;
+	border-radius: 5px;
+	margin: 0 20px 0 20px;
+}

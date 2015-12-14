@@ -1,6 +1,7 @@
 <h1>quiz page</h1>
 <div>
-	<form>
+	<h1>Score: {{score}}</h1>
+	<form ng-submit="compareAnswer()">
 		<input type="text" class="form-control" ng-model="answer">
 		<button type="submit" class="btn btn-default pull-right">Answer</button>
 	</form>

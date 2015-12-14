@@ -10,7 +10,7 @@
 			REDIRECT_URI = 'http://localhost:3000/callback';
 		} else {
 			CLIENT_ID = '7a97d4862b9b46eb84827c9e6bb32d39';
-			REDIRECT_URI = 'http://localhost:3000/callback';
+			REDIRECT_URI = 'https://droptheneedle.herokuapp.com/callback';
 		}
 
 		function getLoginURL(scopes) {

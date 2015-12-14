@@ -16,17 +16,22 @@ angular.module('myApp.controllers')
 	API.getPlaylistTracks(user_id, playlist).then(function (data) {
 		
 		playlistTracks = data.items;
-		setTrackList(playlistTracks);
+		//this function will set the quiz max to 20 and return the shortenedPlaylist
+		shortenPlaylist(playlistTracks);
 		
+		//creates an array with the URIs(track id's) needed to get tracks external API
 		shortenedPlaylist.forEach( function(object){
 			var trackURI = object.track.uri.split(':')[2];
 			shortenedPlaylistURIs.push(trackURI);
 		});
+
+		//requests all the tracks in the array or URIs and pushes all the promises into and array
 		for(var i = 0; i < shortenedPlaylistURIs.length; i++) {
 			promiseArray.push(API.getTrack(shortenedPlaylistURIs[i]));
 		}
-		$q.all(promiseArray)
-		.then( function () {
+
+		//once all the promises are fullfilled...
+		$q.all(promiseArray).then( function () {
 			//this loop removes any null preview_url's from the promise_array queue
 			for(var i = 0; i < promiseArray.length; i++){
 				if(promiseArray[i].$$state.value.preview_url === null) {
@@ -34,15 +39,14 @@ angular.module('myApp.controllers')
 					console.log("SPLICED");
 				}
 			}
-			console.log('promise_array.length', promiseArray.length);
-			console.log('PROMISE ARRAY', promiseArray);
-			console.log('example url', promiseArray[0].$$state.value.preview_url);
+			//plays the first track in the resolved promiseArray
 			createAndPlayAudio(promiseArray[0].$$state.value.preview_url);
 			
 		});
 
 	});	
 	
+	//variables 
 	var _playing = false;
 	var _track = '';
 	var _volume = 100;
@@ -53,22 +57,25 @@ angular.module('myApp.controllers')
 	function createAndPlayAudio(url) {
 
 		console.log('createAndPlayAudio', url);
+		//resets any previous audiotag(and events related to it)
 		if(audiotag) {
 			audiotag = null;
 		}
+		//creates a new Audio tag
 		var audiotag = new Audio();
+		//sets the audio url to the spotify preview url 
 		audiotag.src = url;
 
+		//when url is loaded sound will start playing
 		audiotag.addEventListener('loadedmetadata', function() {
 			console.log('audiotag loadedmetadata');
-			console.log('metadata audiotag', audiotag);
 			_duration = audiotag.duration * 1000.0;
 			audiotag.volume = _volume / 100.0;
 			audiotag.play();
 		}, false);
+		//when track sound is done playing it will play next song (only if there is a next song)
 		audiotag.addEventListener('ended', function () {
 			console.log('audiotag ended');
-			console.log('ended audiotag', audiotag);
 			_playing = false;
 			_track = '';
 			playNextSong();
@@ -77,7 +84,7 @@ angular.module('myApp.controllers')
 		}, false);
 	}
 
-
+	//checks length of current playlist 
 	function playNextSong () {
 		if(position < promiseArray.length-1){
 			position = position + 1;
@@ -87,7 +94,7 @@ angular.module('myApp.controllers')
 	}
 
 	//sets quiz length to a max of 20 songs. 
-	function setTrackList (array) {
+	function shortenPlaylist (array) {
 
 		if(array.length <= 20){
 			shortenedPlaylist.concat(array);
@@ -99,6 +106,7 @@ angular.module('myApp.controllers')
 			}
 		}
 	}
+	
 	//gets random int for setting track list
 	function getRandomInt(min, max) {
 	  return Math.floor(Math.random() * (max - min)) + min;

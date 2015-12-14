@@ -12,6 +12,7 @@ angular.module('myApp.controllers')
 	var shortenedPlaylist = [];
 	var shortenedPlaylistURIs = [];
 	var currentlyPlaying = {};
+	$scope.score = '';
 
 	//gets the tracks for playlist clicked on search page
 	API.getPlaylistTracks(user_id, playlist).then(function (data) {
@@ -99,10 +100,10 @@ angular.module('myApp.controllers')
 	//sets quiz length to a max of 20 songs. 
 	function shortenPlaylist (array) {
 
-		if(array.length <= 20){
+		if (array.length <= 20) {
 			shortenedPlaylist.concat(array);
-		} else if(array.length > 20) {
-			for(var i = 0; i < 20; i++) {
+		} else if (array.length > 20) {
+			for (var i = 0; i < 20; i++) {
 				var j =	getRandomInt(0, array.length);
 				var spliced = array.splice(j, 1);
 				shortenedPlaylist.push(spliced[0]); 
@@ -117,7 +118,14 @@ angular.module('myApp.controllers')
 
 
 	//QUIZ FORM, ANSWER COMPARISON, AND SCORE KEEPING
-	$scope.answer = ''; 
+	$scope.compareAnswer = function () {
+		console.log('submitted');
+		if (currentlyPlaying.artists[0].name == $scope.answer) {
+			$scope.score ++;
+			console.log($scope.score);
+			$scope.answer = '';
+		}
+	};
 
 
 

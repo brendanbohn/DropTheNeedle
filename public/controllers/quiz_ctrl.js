@@ -12,6 +12,7 @@ angular.module('myApp.controllers')
 	var shortenedPlaylist = [];
 	var shortenedPlaylistURIs = [];
 	var currentlyPlaying = {};
+	var answerCount = 0;
 	$scope.score = '';
 
 	//gets the tracks for playlist clicked on search page
@@ -40,6 +41,7 @@ angular.module('myApp.controllers')
 					promiseArray.splice(i, 1);
 					console.log("SPLICED");
 				}
+				$scope.gameLength = promiseArray.length;
 			}
 			//plays the first track in the resolved promiseArray
 			createAndPlayAudio(promiseArray[0].$$state.value.preview_url);
@@ -61,39 +63,43 @@ angular.module('myApp.controllers')
 
 		console.log('createAndPlayAudio', url);
 		//resets any previous audiotag(and events related to it)
-		if(audiotag) {
-			audiotag = null;
+		if($scope.audiotag) {
+			$scope.audiotag = null;
 		}
 		//creates a new Audio tag
-		var audiotag = new Audio();
+		$scope.audiotag = new Audio();
 		//sets the audio url to the spotify preview url 
-		audiotag.src = url;
+		$scope.audiotag.src = url;
 
 		//when url is loaded sound will start playing
-		audiotag.addEventListener('loadedmetadata', function() {
+		$scope.audiotag.addEventListener('loadedmetadata', function() {
 			console.log('audiotag loadedmetadata');
-			_duration = audiotag.duration * 1000.0;
-			audiotag.volume = _volume / 100.0;
-			audiotag.play();
+			_duration = $scope.audiotag.duration * 1000.0;
+			$scope.audiotag.volume = _volume / 100.0;
+			$scope.audiotag.play();
 		}, false);
 		//when track sound is done playing it will play next song (only if there is a next song)
-		audiotag.addEventListener('ended', function () {
+		$scope.audiotag.addEventListener('ended', function () {
 			console.log('audiotag ended');
-			_playing = false;
-			_track = '';
+
 			playNextSong();
-			// disableTick();
-			$rootScope.$emit('endtrack');
+	
 		}, false);
 	}
 
-	//checks length of current playlist 
+	//checks length of current playlist and plays next track in promiseArray
 	function playNextSong () {
-		if(position < promiseArray.length-1){
+		if($scope.audiotag){
+			$scope.audiotag.pause();
+			$scope.audiotag = null;
+		}
+		if(position < promiseArray.length - 1){
 			position = position + 1;
 			createAndPlayAudio(promiseArray[position].$$state.value.preview_url);
 			currentlyPlaying = promiseArray[position].$$state.value;
 			console.log("currentlyPlaying ", currentlyPlaying);
+		} else {
+			console.log('SCORE IS:' + $scope.score + 'out of:' + promiseArray.length);
 		}
 	}
 
@@ -120,14 +126,17 @@ angular.module('myApp.controllers')
 	//QUIZ FORM, ANSWER COMPARISON, AND SCORE KEEPING
 	$scope.compareAnswer = function () {
 		console.log('submitted');
-		if (currentlyPlaying.artists[0].name == $scope.answer) {
+
+		 if (currentlyPlaying.artists[0].name == $scope.answer) {
 			$scope.score ++;
 			console.log($scope.score);
 			$scope.answer = '';
+			playNextSong();
+		} else {
+			$scope.answer = '';
+			playNextSong();
 		}
 	};
-
-
 
 
 }]);

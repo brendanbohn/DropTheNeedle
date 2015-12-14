@@ -1,9 +1,4 @@
 angular.module('myApp.controllers')
-.service('Playlist', function () {
-	this.playlistId =  function (playlist_id) {
-		return playlist_id;
-	};
-})
 .controller('PlaylistSearchController', ['$scope', '$http', '$window', 'Auth','$rootScope', 'API', 'PlaylistId', function ($scope, $http, $window, Auth, $rootScope, API, PlaylistId) {
 
 
@@ -27,5 +22,14 @@ angular.module('myApp.controllers')
 		PlaylistId.setOwnerId(owner);
 	};
 	
-
+	function getUserPlaylists() {
+		API.getMyUsername()
+		.then( function (data) {
+			API.getPlaylists(data.id).then( function(playlists) {
+			$scope.userPlaylists = playlists;
+			console.log($scope.userPlaylists);
+			});
+		});
+	}
+	getUserPlaylists();
 }]);

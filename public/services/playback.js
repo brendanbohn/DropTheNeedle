@@ -53,7 +53,7 @@ module.factory('Playback', function($rootScope, API, $interval) {
 			_duration = audiotag.duration * 1000.0;
 			audiotag.volume = _volume / 100.0;
 			audiotag.play();
-			callback();
+			// callback();
 		}, false);
 		audiotag.addEventListener('ended', function() {
 			console.log('audiotag ended');

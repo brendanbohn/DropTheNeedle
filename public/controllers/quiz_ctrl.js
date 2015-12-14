@@ -1,11 +1,14 @@
 angular.module('myApp.controllers')
 
-.controller('QuizController', [ '$scope', '$http', '$window', 'Auth', 'API', 'PlaylistId','$rootScope', 'Playback', 'PlayQueue', 
-	function ($scope, $http, $window, Auth, API, PlaylistId, $rootScope, Playback, PlayQueue) {
+.controller('QuizController', [ '$scope', '$http', '$window', 'Auth', 'API', 'PlaylistId','$rootScope', 'Playback', 'PlayQueue', '$q',
+	function ($scope, $http, $window, Auth, API, PlaylistId, $rootScope, Playback, PlayQueue, $q) {
 	
 	//gets vallues from SearchController(search bar form)
 	var user_id = PlaylistId.getOwnerId();
 	var playlist = PlaylistId.getPlaylistId();
+	var promise_array = [];
+	var hasTracks = false;
+	var position = 0;
 
 	//gets the tracks for playlist clicked on search page
 	API.getPlaylistTracks(user_id, playlist).then(function (tracks) {
@@ -18,20 +21,55 @@ angular.module('myApp.controllers')
 			var trackid = object.track.uri.split(':')[2];
 			$scope.toQueue.push(trackid);
 		});
-		console.log('toQueue', $scope.toQueue);
-		PlayQueue._queue = $scope.toQueue;
-		Playback.startPlaying(PlayQueue._queue[0]);
-	});	
+		for(var i = 0; i < $scope.toQueue.length; i++) {
+			promise_array.push(
+				API.getTrack($scope.toQueue[i])
+			);
+		}
+		$q.all(promise_array)
+		.then( function () {
+			console.log('PROMISE ARRAY', promise_array);
+			console.log('example url', promise_array[0].$$state.value.preview_url);
+			createAndPlayAudio(promise_array[0].$$state.value.preview_url);
+		});
 
-	$rootScope.$on('endtrack', function() {
-		PlayQueue.next();
-	});
-	$rootScope.$on('playqueuechanged', function() {
-		console.log("QUEUE:", PlayQueue._queue);
-		var position = PlayQueue.getPosition();
-		console.log(position);
-		Playback.startPlaying(PlayQueue._queue[position]);
-	});
+	});	
+	
+	var _playing = false;
+	var _track = '';
+	var _volume = 100;
+	var _progress = 0;
+	var _duration = 0;
+	var _trackdata = null;	
+	var audiotag = new Audio();
+
+	function createAndPlayAudio(url, callback, endcallback) {
+		console.log('createAndPlayAudio', url);
+		if (audiotag.src !== null) {
+			audiotag.pause();
+			audiotag.src = null;
+		}
+		audiotag.src = url;
+		audiotag.addEventListener('loadedmetadata', function() {
+			console.log('audiotag loadedmetadata');
+			_duration = audiotag.duration * 1000.0;
+			audiotag.volume = _volume / 100.0;
+			audiotag.play();
+			// callback();
+		}, false);
+		audiotag.addEventListener('ended', function () {
+			console.log('audiotag ended');
+			_playing = false;
+			_track = '';
+		
+			while(position < promise_array.length){
+				position = position + 1;
+				createAndPlayAudio(promise_array[position].$$state.value.preview_url);
+			}
+			// disableTick();
+			// $rootScope.$emit('endtrack');
+		}, true);
+	}
 
 	//sets quiz length to a max of 20 songs. 
 	function setTrackList (array) {

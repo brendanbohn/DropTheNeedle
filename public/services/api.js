@@ -125,12 +125,12 @@ module.factory('API', function(Auth, $q, $http) {
 						})
 					);
 					offset += limit;
-				};
+				}
 
 				$q.all(promises).then(function(results) {
 					results.forEach(function(result) {
 						playlists = playlists.concat(result.data.items);
-					})
+					});
 					console.log('got playlists', playlists);
 					ret.resolve(playlists);
 				});

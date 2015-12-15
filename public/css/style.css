@@ -9,6 +9,13 @@ body {
 	background: linear-gradient(135deg, #262626, #222326);
 	color: white;
 }
+a {
+	color: #D9D7DB;
+}
+
+/* LOGIN VIEW STYLES */
+
+
 .loginview {
 	-webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
 	   -moz-animation: fadein 2s; /* Firefox < 16 */
@@ -73,4 +80,27 @@ body {
 	padding: 10px 0;
 	border-radius: 5px;
 	margin: 0 20px 0 20px;
+}
+
+
+/* SEARCH VIEW STYLES */
+
+nav {
+	padding: 20px;
+	border-bottom: 1px solid #79787A;
+}
+nav a {
+	color: #D9D7DB;
+	margin: 20px;
+	border-bottom: none;
+}
+nav a:hover{
+	color: #4FC773;
+	text-decoration: none;
+	padding-bottom: 21px;
+	border-bottom: 2px solid #4FC773;
+}
+nav a:visited {
+	color: #D9D7DB !important;
+	margin: 20px;
 }

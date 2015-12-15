@@ -21,15 +21,4 @@ angular.module('myApp.controllers')
 		PlaylistId.setPlaylistId(playlist);
 		PlaylistId.setOwnerId(owner);
 	};
-	
-	function getUserPlaylists() {
-		API.getMyUsername()
-		.then( function (data) {
-			API.getPlaylists(data.id).then( function(playlists) {
-			$scope.userPlaylists = playlists;
-			console.log($scope.userPlaylists);
-			});
-		});
-	}
-	getUserPlaylists();
 }]);

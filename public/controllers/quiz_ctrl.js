@@ -4,6 +4,7 @@ angular.module('myApp.controllers')
 	function ($scope, $http, $window, Auth, API, PlaylistId, $rootScope, Playback, PlayQueue, $q) {
 	
 	//gets vallues from SearchController(search bar form)
+	$scope.game = true;
 	var user_id = PlaylistId.getOwnerId();
 	var playlist = PlaylistId.getPlaylistId();
 	var promiseArray = [];
@@ -102,6 +103,7 @@ angular.module('myApp.controllers')
 			console.log("currentlyPlaying ", currentlyPlaying);
 		} else {
 			console.log('SCORE IS:' + $scope.score + 'out of:' + promiseArray.length);
+			$scope.game = false;
 		}
 	}
 

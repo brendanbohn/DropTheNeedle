@@ -13,7 +13,7 @@ angular.module('myApp.controllers')
 	var shortenedPlaylistURIs = [];
 	var currentlyPlaying = {};
 	var answerCount = 0;
-	$scope.score = '';
+	$scope.score = 0;
 
 	//gets the tracks for playlist clicked on search page
 	API.getPlaylistTracks(user_id, playlist).then(function (data) {
@@ -43,6 +43,7 @@ angular.module('myApp.controllers')
 					console.log("SPLICED");
 				}
 			}
+			$scope.gameLength = promiseArray.length;		
 			console.log('promiseArray', promiseArray);
 			//plays the first track in the resolved promiseArray
 			createAndPlayAudio(promiseArray[0].$$state.value.preview_url);

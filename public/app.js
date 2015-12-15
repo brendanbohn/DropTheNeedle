@@ -12,8 +12,7 @@ angular.module('myApp', ['ui.router',
     $stateProvider
       .state('home', {
         url: "/",
-        templateUrl: 'templates/home',
-        controller: 'PlaylistSearchController'
+        templateUrl: 'templates/home'
       })
       .state('quiz', {
         url:"/quiz/:playlist_id",
@@ -42,7 +41,8 @@ angular.module('myApp', ['ui.router',
 
 
 angular.module('myApp.controllers', [])
-  .controller('MainCtrl', ['$rootScope', '$scope', 'Auth', '$window', '$http', 'API', function ($rootScope, $scope, Auth, $window, $http, API) {
+  .controller('MainCtrl', ['$rootScope', '$scope', 'Auth', '$window', '$http', 'API', 'UserPlaylists', 'PlaylistId',
+    function ($rootScope, $scope, Auth, $window, $http, API, UserPlaylists, PlaylistId) {
     // INITIALIZATION AND NAVBAR LOGIC
 
     $window.addEventListener("message", function(event) {
@@ -53,9 +53,12 @@ angular.module('myApp.controllers', [])
           if(Auth.getAccessToken()) {
             $rootScope.isLoggedIn = true;
             API.getMe().then(function(userInfo){
-              console.log(userInfo);
               $rootScope.spotifyUser = userInfo;
+                return userInfo;
+            }).then(function(userInfo) {
+              UserPlaylists.getUserPlaylists(userInfo.id);
             });
+
           } else {
             $rootScope.isLoggedIn = false;
             console.log("false");
@@ -71,6 +74,19 @@ angular.module('myApp.controllers', [])
             $rootScope.isLoggedIn = false;
             console.log("false");
           }
+
+          API.getMe().then(function(userInfo){
+              $rootScope.spotifyUser = userInfo;
+                return userInfo;
+            }).then(function(userInfo) {
+              UserPlaylists.getUserPlaylists(userInfo.id);
+            });
+
+
+            $scope.setPlaylistScope = function(playlist, owner) {
+              PlaylistId.setPlaylistId(playlist);
+              PlaylistId.setOwnerId(owner);
+            };
 
 
   }]);

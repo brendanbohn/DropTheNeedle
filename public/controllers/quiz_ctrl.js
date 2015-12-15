@@ -19,15 +19,16 @@ angular.module('myApp.controllers')
 	API.getPlaylistTracks(user_id, playlist).then(function (data) {
 		
 		playlistTracks = data.items;
+		console.log('playlistTracks', playlistTracks);
 		//this function will set the quiz max to 20 and return the shortenedPlaylist
 		shortenPlaylist(playlistTracks);
-		
+		console.log('shortenedPlaylist', shortenedPlaylist);
 		//creates an array with the URIs(track id's) needed to get tracks external API
 		shortenedPlaylist.forEach( function(object){
 			var trackURI = object.track.uri.split(':')[2];
 			shortenedPlaylistURIs.push(trackURI);
 		});
-
+		console.log('shortenedPlaylistURIs', shortenedPlaylistURIs);
 		//requests all the tracks in the array or URIs and pushes all the promises into and array
 		for(var i = 0; i < shortenedPlaylistURIs.length; i++) {
 			promiseArray.push(API.getTrack(shortenedPlaylistURIs[i]));
@@ -41,8 +42,8 @@ angular.module('myApp.controllers')
 					promiseArray.splice(i, 1);
 					console.log("SPLICED");
 				}
-				$scope.gameLength = promiseArray.length;
 			}
+			console.log('promiseArray', promiseArray);
 			//plays the first track in the resolved promiseArray
 			createAndPlayAudio(promiseArray[0].$$state.value.preview_url);
 			currentlyPlaying = promiseArray[0].$$state.value;
@@ -105,7 +106,7 @@ angular.module('myApp.controllers')
 
 	//sets quiz length to a max of 20 songs. 
 	function shortenPlaylist (array) {
-
+	
 		if (array.length <= 20) {
 			shortenedPlaylist.concat(array);
 		} else if (array.length > 20) {

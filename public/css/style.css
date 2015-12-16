@@ -200,3 +200,6 @@ h3 {
 	text-decoration: none;
 	background-color: #4FC773;
 }
+#quiz-form {
+	margin: 40px 0;
+}

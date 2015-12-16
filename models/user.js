@@ -11,7 +11,7 @@ var UserSchema = new Schema({
     created_at: { type: Date,  default: Date.now() },
     updated_at: { type: Date },
     quizzes: [Quiz.schema], 
-    spotify_id: { type: String, required: true }
+    spotify_id: { type: String }
 });
 
 UserSchema.pre('save', function(next){

@@ -8,6 +8,7 @@ angular.module('myApp.controllers')
 	var user_id = PlaylistId.getOwnerId();
 	var playlist = PlaylistId.getPlaylistId();
 	var playlistName = PlaylistId.getPlaylistName();
+	console.log(playlistName);
 	var promiseArray = [];
 	var position = 0;
 	var playlistTracks = [];

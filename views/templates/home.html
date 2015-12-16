@@ -25,7 +25,7 @@
         <h3>Your Playlists</h3>
         <div class="user-playlists">
           <div ng-repeat="playlist in userPlaylists">
-            <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id)">
+            <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id, playlist.name)">
               <a ui-sref="quiz" >
                 <p>{{playlist.name}}</p>
               </a>

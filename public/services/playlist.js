@@ -14,6 +14,12 @@ angular.module('myApp').service('PlaylistId', function() {
 		setOwnerId: function (owner) {
 			owner_id = owner;
 			console.log("Owner ID:", owner_id);
+		},
+		getPlaylistName: function() {
+			return playlist_name;
+		},
+		setPlaylistName: function(playlistName) {
+			playlist_name = playlistName;
 		}
 	};
 });

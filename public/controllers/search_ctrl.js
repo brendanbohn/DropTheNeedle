@@ -17,8 +17,9 @@ angular.module('myApp.controllers')
 	};
 
 
-	$scope.setPlaylistScope = function(playlist, owner) {
+	$scope.setPlaylistScope = function(playlist, owner, playlistName) {
 		PlaylistId.setPlaylistId(playlist);
 		PlaylistId.setOwnerId(owner);
+		PlaylistId.setPlaylistName(playlistName);
 	};
 }]);

@@ -172,3 +172,34 @@ h3 {
 	margin: 25px 0 0 0;
 }
 
+
+/* QUIZ STYLING */
+
+#quiz-playlist-title {
+	margin: 50px 0 25px 0;
+	font-weight: 100;
+	font-size: 50px;
+}
+#game-ended h1 {
+	font-weight: 100;
+}
+#score-display {
+	height: 20px;
+	background-color: gray;
+}
+#try-again {
+	margin: 50px 0 0 0;
+}
+#try-again a {
+	color: white;
+	background-color: #1ED760;
+	padding: 10px 20px;
+	border-radius: 5px;
+}
+#try-again a:hover {
+	text-decoration: none;
+	background-color: #4FC773;
+}
+#quiz-form {
+	margin: 40px 0;
+}

@@ -47,6 +47,7 @@ angular.module('myApp.controllers')
 			}
 			$scope.gameLength = promiseArray.length;		
 			console.log('promiseArray', promiseArray);
+			$scope.promiseArray = promiseArray;
 			//plays the first track in the resolved promiseArray
 			createAndPlayAudio(promiseArray[0].$$state.value.preview_url);
 			currentlyPlaying = promiseArray[0].$$state.value;
@@ -146,6 +147,7 @@ angular.module('myApp.controllers')
 			$scope.score ++;
 			console.log($scope.score);
 			$scope.answer = '';
+			$scope.styling = "correct";
 			playNextSong();
 		} else {
 			$scope.answer = '';

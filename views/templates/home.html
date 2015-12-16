@@ -2,7 +2,7 @@
   <div class="centered" ng-hide="isLoggedIn">
     <div class="inner">
       <h1 class="text-center">Drop The Needle</h1>
-      <div id="welcome-text">
+      <div id="welcome-text" class="col-sm-6 col-sm-offset-3">
         <p class="text-center">
           Drop The Needle is a music quiz game that tests your music knowledge.<br>Simply search and choose a playlist, then guess the artist of each song snippet.
         </p>
@@ -15,46 +15,55 @@
   </div>
 </div>
 
-<div ng-show="isLoggedIn">
-  <div ng-controller='PlaylistSearchController'>
-    <h3 class='text-center'>Search for a playlist</h3>
-    <form ng-submit="searchPlaylist()">
-      <div class='form-group'>
-        <input type="text" class='form-control' ng-model="term"/>
-      </div>
-      <div class="pull-right">
-        <button type="submit" class='btn btn-default'>Search</button>
-      </div>
-    </form>
-    <hr>
-    <!-- search results -->
-    <div id='playlist-results'>
-      <div class="row">
-        <div class="col-xs-3" ng-repeat="playlist in playlists">
-          <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id)">
-            <a ui-sref="quiz" >
-              <!-- <input type="hidden" value="{{playlist.id}}"> -->
-              <img ng-src="{{playlist.images[2].url}}">
-              <p>{{playlist.name}}</p>
-            </a>
+<div ng-show="isLoggedIn" id="searchView">
+  
+  <!-- Search View -->
+  <div id="search">
+    <div class="row">
+      <!-- User's Playlists -->
+      <div class="col-md-3 col-xs-6 user-side">
+        <h3>Your Playlists</h3>
+        <div class="user-playlists">
+          <div ng-repeat="playlist in userPlaylists">
+            <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id)">
+              <a ui-sref="quiz" >
+                <p>{{playlist.name}}</p>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Users Playlists -->
-  <div id="users-playlists">
-    <div class="row">
-      <div class="col-xs-3" ng-repeat="playlist in userPlaylists">
-        <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id)">
-          <a ui-sref="quiz" >
-            <!-- <input type="hidden" value="{{playlist.id}}"> -->
-            <img ng-src="{{playlist.images[2].url}}">
-            <p>{{playlist.name}}</p>
-          </a>
+      <!-- Search Side-->
+      <div class="col-md-9 col-xs-6">
+        <div ng-controller='PlaylistSearchController' class="search">
+          <h3 class='text-center'>Search for a playlist</h3>
+          <form ng-submit="searchPlaylist()">
+            <div class='input-group'>
+              <input type="text" class='form-control' ng-model="term"/>
+              <span class="input-group-btn">
+                <button type="submit" class='btn btn-default'>Search</button>
+              </span>
+            </div>
+          </form>
+          <!-- search results -->
+          <div class='playlist-results'>
+            <div class="row">
+              <div class="col-md-3 col-xs-6" ng-repeat="playlist in playlists">
+                <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id)" class="text-center">
+                  <a ui-sref="quiz" >
+                    <!-- <input type="hidden" value="{{playlist.id}}"> -->
+                    <img ng-src="{{playlist.images[2].url}}">
+                    <p>{{playlist.name}}</p>
+                    <span>Take Quiz</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>    
   </div>
+
 </div>

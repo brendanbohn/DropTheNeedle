@@ -174,7 +174,10 @@ h3 {
 
 
 /* QUIZ STYLING */
-
+#game-score {
+	margin: 25px 0;
+	font-weight: 100;
+}
 #quiz-playlist-title {
 	margin: 50px 0 25px 0;
 	font-weight: 100;

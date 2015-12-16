@@ -1,4 +1,5 @@
-<h1>quiz page</h1>
+<h1 class="text-center" id="quiz-playlist-title">Playlist title</h1>
+<div id="score-display">Score Display Will Go Here</div>
 <div ng-show="game">
 	<h1>Score: {{score}} / {{gameLength}}</h1>
 	<form ng-submit="compareAnswer()">
@@ -6,6 +7,11 @@
 		<button type="submit" class="btn btn-default pull-right">Answer</button>
 	</form>
 </div>
-<div ng-hide="game">
-	<h1>You got {{score}} out of {{gameLength}} right!</h1>
+<div id="game-ended" ng-hide="game">
+	<div class="text-center">
+		<h1>You got {{score}} out of {{gameLength}} right!</h1>
+		<div id="try-again">
+			<a href="#">Try Again</a>
+		</div>
+	</div>
 </div>

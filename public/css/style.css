@@ -180,6 +180,13 @@ h3 {
 	font-weight: 100;
 	font-size: 50px;
 }
+#quiz-timer-counter {
+	color: white;
+	border-bottom: 1px solid #1ED760;
+	font-size: 25px;
+	width: 100px;
+	margin: 0 auto;
+}
 #game-ended h1 {
 	font-weight: 100;
 }
@@ -211,74 +218,4 @@ h3 {
 }
 #score-display .correct {
 	color: green;
-}
-
-/*quiz timer*/
-
-.quiz-timer {
-	margin: 70px 0 0 0;
-}
-.quiz-timer p {
-	font-weight: 100;
-	margin: 20px 0 0 0;
-}
-.quiz-timer ol {
-  background-color: black;
-  display: inline-block;
-  list-style: none;
-  text-align: center;
-  margin: 0 auto;
-  padding: 0 0.5em;
-  height: 8.5em;
-  overflow: hidden;
-  border-style: solid;
-  border-color: black;
-  border-width: 20px 10px;
-}
-
-.quiz-timer li {
-  float: left;
-  padding: 0 0.5em;
-  background-color: #333;
-  margin: 0 0.5em;
-  color: #ddd;
-}
-
-.quiz-timer div {
-  float: left;
-  position: relative;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-.quiz-timer span {
-  display: block;
-  font-size: 6em;
-  line-height: 1em;
-}
-
-.sec .one {
-  animation-name: one-step-sec;
-  animation-duration: 10s;
-}
-
-.sec .ten {
-  animation-name: ten-step-sec;
-  animation-duration: 30s;
-}
-
-@keyframes one-step-sec {
-  from {
-    top: -60em;
-  }
-  to {
-    top: 0em; 
-  }
-}
-
-@keyframes ten-step-sec {
-	0%, 1% { top: -18em;}
-	3%, 33% { top: -12em;}
-	37%, 67% { top: -6em;}
-	70%, 100% { top: 0em;}
 }

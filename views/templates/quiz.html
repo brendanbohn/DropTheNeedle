@@ -1,10 +1,8 @@
 <h1 class="text-center" id="quiz-playlist-title">Playlist title</h1>
 <div id="score-display" class="text-center">
-	<span ng-repeat="p in promiseArray">
-		<span ng-class="styling" id="score-{{$index}}">
-			{{$index+1}}
-		</span>
-	</span>
+	<p id="quiz-timer-counter" >
+		{{ counter }}
+	</p>
 </div>
 <div id="quiz-form" ng-show="game">
 	<!-- <h1>Score: {{score}} / {{gameLength}}</h1> -->
@@ -14,33 +12,6 @@
 			<button type="submit" class="btn btn-default pull-right">Answer</button>
 		</span>
 	</form>
-	<!-- TIMER -->
-	<div class="quiz-timer text-center">
-	  <ol class="clock">
-	    <li class="sec">
-	      <div class="ten">
-	        <span>0</span>
-	        <span>1</span>
-	        <span>2</span>
-	        <span>3</span>
-	      </div>
-	      <div class="one">
-	        <span>0</span>
-	        <span>1</span>
-	        <span>2</span>
-	        <span>3</span>
-	        <span>4</span>
-	        <span>5</span>
-	        <span>6</span>
-	        <span>7</span>
-	        <span>8</span>
-	        <span>9</span>
-	        <span>0</span>
-	      </div>
-	    </li>
-	  </ol>
-	  <p>You only have 30 seconds to guess!</p>
-	</div>
 </div>
 <div id="game-ended" ng-hide="game">
 	<div class="text-center">

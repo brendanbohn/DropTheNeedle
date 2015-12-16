@@ -3,7 +3,6 @@ angular.module('myApp').factory('UserPlaylists', ['API','$rootScope', function (
 		 getUserPlaylists: function(username) {
 				API.getPlaylists(username)
 					.then( function(playlists) {
-					console.log('factory', playlists);
 					// var publicPlaylists = [];
 					//makes sure the user's playlists are public before populating
 					// for (var i = 0; i < playlists.length; i++) {

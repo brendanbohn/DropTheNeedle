@@ -1,4 +1,4 @@
 var express = require('express');
 var postRouter = express.Router();
-var request = require('request');
+var Quiz = require('../models/quiz.js');
 

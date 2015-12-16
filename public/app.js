@@ -56,7 +56,20 @@ angular.module('myApp.controllers', [])
               $rootScope.spotifyUser = userInfo;
                 return userInfo;
             }).then(function(userInfo) {
+              var user = userInfo;
               UserPlaylists.getUserPlaylists(userInfo.id);
+
+              //sets account if user exists and redirects to create-new-account if cant find this user
+              $http({
+                method: 'GET',
+                url: '/set-current-account/user/' + user.id,
+                })
+              .then(function success(response) {
+                console.log('success data is ', response.data[0]);
+                $rootScope.activeAccount = response.data[0];
+              }, function error(response) {
+                console.log('error', response);
+              }); 
             });
 
           } else {
@@ -69,10 +82,8 @@ angular.module('myApp.controllers', [])
 
           if(Auth.getAccessToken()) {
             $rootScope.isLoggedIn = true;
-            console.log("true");  
           } else {
             $rootScope.isLoggedIn = false;
-            console.log("false");
           }
 
           API.getMe().then(function(userInfo){
@@ -80,9 +91,10 @@ angular.module('myApp.controllers', [])
                 return userInfo;
             }).then(function(userInfo) {
               UserPlaylists.getUserPlaylists(userInfo.id);
+            
             });
 
-
+            //sets the playlist scope in the service to send to quiz controller to find quiz playlist
             $scope.setPlaylistScope = function(playlist, owner) {
               PlaylistId.setPlaylistId(playlist);
               PlaylistId.setOwnerId(owner);

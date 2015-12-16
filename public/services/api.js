@@ -94,7 +94,7 @@ module.factory('API', function(Auth, $q, $http) {
 		},
 
 		getPlaylists: function(username) {
-			console.log(username);
+			
 			var limit = 50;
 			var ret = $q.defer();
 			var playlists = [];

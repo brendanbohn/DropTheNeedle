@@ -1,7 +1,7 @@
 angular.module('myApp.controllers')
 
-.controller('QuizController', [ '$scope', '$http', '$window', 'Auth', 'API', 'PlaylistId','$rootScope', 'Playback', 'PlayQueue', '$q',
-	function ($scope, $http, $window, Auth, API, PlaylistId, $rootScope, Playback, PlayQueue, $q) {
+.controller('QuizController', [ '$scope', '$http', '$window', 'Auth', 'API', 'PlaylistId','$rootScope', 'Playback', 'PlayQueue', '$q', '$timeout',
+	function ($scope, $http, $window, Auth, API, PlaylistId, $rootScope, Playback, PlayQueue, $q, $timeout) {
 	
 	//gets vallues from SearchController(search bar form)
 	$scope.game = true;
@@ -17,6 +17,8 @@ angular.module('myApp.controllers')
 	var currentlyPlaying = {};
 	var answerCount = 0;
 	$scope.score = 0;
+
+	quizTimer();
 
 	//gets the tracks for playlist clicked on search page
 	API.getPlaylistTracks(user_id, playlist).then(function (data) {
@@ -48,6 +50,7 @@ angular.module('myApp.controllers')
 			}
 			$scope.gameLength = promiseArray.length;		
 			console.log('promiseArray', promiseArray);
+			$scope.promiseArray = promiseArray;
 			//plays the first track in the resolved promiseArray
 			createAndPlayAudio(promiseArray[0].$$state.value.preview_url);
 			currentlyPlaying = promiseArray[0].$$state.value;
@@ -65,7 +68,8 @@ angular.module('myApp.controllers')
 	var _trackdata = null;	
 
 	function createAndPlayAudio(url) {
-
+		// for the quiz timer
+		$scope.counter = 30;
 		console.log('createAndPlayAudio', url);
 		//resets any previous audiotag(and events related to it)
 		if($scope.audiotag) {
@@ -142,17 +146,27 @@ angular.module('myApp.controllers')
 	//QUIZ FORM, ANSWER COMPARISON, AND SCORE KEEPING
 	$scope.compareAnswer = function () {
 		console.log('submitted');
-
 		 if (currentlyPlaying.artists[0].name == $scope.answer) {
 			$scope.score ++;
 			console.log($scope.score);
 			$scope.answer = '';
+			$scope.styling = "correct";
 			playNextSong();
 		} else {
 			$scope.answer = '';
 			playNextSong();
 		}
 	};
+
+	// CREATES THE QUIZ TIMER
+	function quizTimer() {
+		$scope.counter = 30;
+		$scope.onTimeout = function(){
+		    $scope.counter--;
+		    mytimeout = $timeout($scope.onTimeout,1000);
+		};
+		var mytimeout = $timeout($scope.onTimeout,1000);
+	}
 
 
 }]);

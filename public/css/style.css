@@ -174,19 +174,29 @@ h3 {
 
 
 /* QUIZ STYLING */
-
+#game-score {
+	margin: 25px 0;
+	font-weight: 100;
+}
 #quiz-playlist-title {
 	margin: 50px 0 25px 0;
 	font-weight: 100;
 	font-size: 50px;
 }
+#quiz-timer-counter {
+	color: white;
+	border-bottom: 1px solid #1ED760;
+	font-size: 25px;
+	width: 100px;
+	margin: 0 auto;
+}
 #game-ended h1 {
 	font-weight: 100;
 }
-#score-display {
+/*#score-display {
 	height: 20px;
 	background-color: gray;
-}
+}*/
 #try-again {
 	margin: 50px 0 0 0;
 }
@@ -202,4 +212,13 @@ h3 {
 }
 #quiz-form {
 	margin: 40px 0;
+}
+#score-display .styling {
+	color: gray;
+}
+#score-display .wrong {
+	color: red;
+}
+#score-display .correct {
+	color: green;
 }

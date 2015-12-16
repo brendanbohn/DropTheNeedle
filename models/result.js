@@ -7,8 +7,8 @@
 
  var ResultSchema = new Schema({
      created_at: { type: Date, default: Date.now() },
-     score: { type: Number, required: true },
-     possible_score: { type: Number, required: true }
+     score: { type: Number },
+     possible_score: { type: Number }
  });
 
  ResultSchema.pre('save', function(next){

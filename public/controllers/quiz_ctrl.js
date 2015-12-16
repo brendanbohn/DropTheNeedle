@@ -7,6 +7,7 @@ angular.module('myApp.controllers')
 	$scope.game = true;
 	var user_id = PlaylistId.getOwnerId();
 	var playlist = PlaylistId.getPlaylistId();
+	var playlistName = PlaylistId.getPlaylistName();
 	var promiseArray = [];
 	var position = 0;
 	var playlistTracks = [];
@@ -104,6 +105,16 @@ angular.module('myApp.controllers')
 		} else {
 			console.log('SCORE IS:' + $scope.score + 'out of:' + promiseArray.length);
 			$scope.game = false;
+			//creating quiz and result in database
+			// '/quiz/:playlist_name/:playlist_id/result/:score/:possible_score'
+			$http({
+				method: 'POST',
+				url: '/user/'+ $rootScope.activeAccount.spotify_id + '/quiz/' + playlistName + '/' + playlist + '/result/' + $scope.score + '/' + promiseArray.length,
+			}).then( function success(response) {
+
+			}, function error(response) {
+				console.log('error', response);
+			});
 		}
 	}
 

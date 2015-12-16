@@ -12,6 +12,8 @@ var path = require('path');   // built-in module for dealing with file paths
 var bodyParser = require('body-parser');  // parse form data into req.body
 var mongoose = require('mongoose');   // object document mapper
 var User = require('./models/user.js');
+var Quiz = require('./models/quiz.js');
+var Result = require('./models/user.js');
 
 // configure bodyparser
 app.use(bodyParser.urlencoded({
@@ -81,6 +83,18 @@ app.get('/set-current-account/user/:spotify_id', function (req, res) {
       }
     });
   });
+
+app.post('user/:spotify_id/quiz/:playlist_name/:playlist_id/result/:score/:possible_score', function (req, res) {
+    User.find({ spotify_id: req.params.spotify_id }, function (err, user) {
+       if (err) { 
+        return res.status(404).send(err); 
+       } else if (user) {
+        Quiz.find({ playlist_id: req.params.playlist_id}, function (err, quiz) {
+          if (err) { return res.status(404).send(err); }
+        });
+       }
+    });
+});
 
 
 // ALL OTHER ROUTES (ANGULAR HANDLES)

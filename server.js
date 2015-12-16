@@ -85,45 +85,56 @@ app.get('/set-current-account/user/:spotify_id', function (req, res) {
   });
 
 
-var quizMongoId = "507f1f77bcf86cd799439011";
+var existingQuiz = "507f1f77bcf86cd799439011";
 app.post('/user/:spotify_id/quiz/:playlist_name/:playlist_id/result/:score/:possible_score', function (req, res) {
   console.log('INSIDE POST REQUEST');
   User.findOne({ spotify_id: req.params.spotify_id })
     .populate({
-      path: 'quizzes',
-      match: {playlist_id: req.params.playlist_id}
+      path: 'quizzes'
     })
     .exec(
       function(err, user) {
-        if (user.quizzes.length === 0) {
+         
+        for(var i = 0; i < user.quizzes.length; i++) {
+          if(user.quizzes[i].playlist_id == req.params.playlist_id) {
+            existingQuiz = user.quizzes[i];
+          }
+        } 
+
+        if (existingQuiz.playlist_id !== req.params.playlist_id) {
+          console.log('About to create quiz');
           Quiz.create({ playlist_id: req.params.playlist_id, playlist_name: req.params.playlist_name}, function (err, quiz){
             if (err) {
+              console.log('error in quiz create');
               res.status(404).send(err);
             } else if (quiz) {
-              console.log('NEW QUIZ', quiz);
+              console.log('new Quiz no result!', quiz);
               Result.create({ score: req.params.score, possible_score: req.params.possible_score }, function (err, result) {
                   if (err) {
                     console.log(err);
                   } else if (result) {
-  
-                    console.log('RESULT', result);
+                    console.log('new Result for quiz', result);
                     quiz.results.push(result);
+                    console.log('quiz after save', quiz);
                   }
-              }); 
               user.quizzes.push(quiz);
-              user.save();
+              user.save( function (err) {
+                if (err) { console.log('ERROR!', err); }
+                console.log('user after save', user);
+              });
               res.send(quiz);
+              }); 
             }
           });
-        } else {
+
+        } else if (existingQuiz.playlist_id == req.params.playlist_id) {
           console.log('req.params.score', req.params.score);
      
           Result.create({ score: req.params.score, possible_score: req.params.possible_score }, function (err, result) {
               if (err) {
                 res.status(404).send(err);
               } else if (result) {
-                console.log('RESULT', result);
-                user.quizzes[0].results.push(result);
+               existingQuiz.results.push(result);
                 user.save(); 
                 res.send(result);
               }

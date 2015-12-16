@@ -11,6 +11,6 @@ exports.templates = function (req, res) {
   res.render('templates/' + name);
 };
 
-exports.postRouter =  require('./quiz.js');
-exports.postRouter =  require('./results.js');
+// exports.postRouter =  require('./quiz.js');
+// exports.postRouter =  require('./results.js');
 exports.postRouter =  require('./users.js');

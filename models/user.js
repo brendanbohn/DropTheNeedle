@@ -10,10 +10,8 @@ var Quiz = require('./quiz');
 var UserSchema = new Schema({
     created_at: { type: Date,  default: Date.now() },
     updated_at: { type: Date },
-    username: { type: String, required: true, trim: true },
-    email: { type: String, required: true, trim: true },
-    password: { type: String, required: true, trim: true },
-    quizzes: [Quiz.schema]
+    quizzes: [Quiz.schema], 
+    spotify_id: { type: String, required: true }
 });
 
 UserSchema.pre('save', function(next){

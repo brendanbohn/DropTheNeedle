@@ -11,7 +11,8 @@ var QuizSchema = new Schema({
     created_at: { type: Date, default: Date.now() },
     updated_at: { type: Date },
     results: [Result.schema],
-    playlist_id: { type: String, required: true }
+    playlist_id: { type: String, required: true },
+    playlist_name: {type: String, require: true }
 });
 
 // MIDDLEWARE

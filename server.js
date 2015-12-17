@@ -86,7 +86,7 @@ app.get('/set-current-account/user/:spotify_id', function (req, res) {
 
 
 var existingQuiz = "507f1f77bcf86cd799439011";
-app.post('/user/:spotify_id/quiz/:playlist_name/:playlist_id/result/:score/:possible_score', function (req, res) {
+app.post('/user/:spotify_id/quiz/:playlist_name/:playlist_id/:owner_id/result/:score/:possible_score', function (req, res) {
   console.log('INSIDE POST REQUEST');
   User.findOne({ spotify_id: req.params.spotify_id })
     .populate({
@@ -103,7 +103,7 @@ app.post('/user/:spotify_id/quiz/:playlist_name/:playlist_id/result/:score/:poss
 
         if (existingQuiz.playlist_id !== req.params.playlist_id) {
           console.log('About to create quiz');
-          Quiz.create({ playlist_id: req.params.playlist_id, playlist_name: req.params.playlist_name}, function (err, quiz){
+          Quiz.create({ playlist_id: req.params.playlist_id, playlist_name: req.params.playlist_name, owner_id: req.params.owner_id }, function (err, quiz){
             if (err) {
               console.log('error in quiz create');
               res.status(404).send(err);

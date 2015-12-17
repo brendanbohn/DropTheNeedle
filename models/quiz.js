@@ -11,6 +11,7 @@ var QuizSchema = new Schema({
     created_at: { type: Date, default: Date.now() },
     updated_at: { type: Date },
     results: [Result.schema],
+    owner_id: {type: String },
     playlist_id: { type: String },
     playlist_name: {type: String }
 });

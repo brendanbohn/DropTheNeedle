@@ -59,8 +59,13 @@
                 <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id, playlist.name)" class="text-center">
                   <a ui-sref="quiz" >
                     <!-- <input type="hidden" value="{{playlist.id}}"> -->
-                    <img ng-src="{{playlist.images[2].url}}">
-                    <p>{{playlist.name}}</p>
+                    <span ng-if='playlist.images[2].url'>
+                      <img ng-src="{{playlist.images[2].url}}">
+                    </span>
+                    <span ng-if='!playlist.images[2].url'>
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Record2.png">
+                    </span>
+                    <p>{{playlist.name | limitTo: 20 : 0}}<span ng-if="playlist.name.length > 20">...</span></p>
                     <span class="take-quiz">Take Quiz</span>
                   </a>
                 </div>

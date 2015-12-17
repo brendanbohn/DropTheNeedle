@@ -97,12 +97,15 @@ nav {
 	     -o-animation: fadein 2s; /* Opera < 12.1 */
 	        animation: fadein 2s;
 }
+#nav-header {
+	margin: 20px 40px;
+}
 nav a {
+	margin: 20px 40px 20px -10px;
 	color: #D9D7DB;
-	margin: 20px;
 	border-bottom: none;
 }
-nav a:hover{
+nav a:hover {
 	color: #999999;
 	text-decoration: none;
 	padding-bottom: 21px;

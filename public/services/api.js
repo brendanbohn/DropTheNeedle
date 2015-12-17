@@ -1,6 +1,6 @@
 var module = angular.module('myApp');
 
-module.factory('API', function(Auth, $q, $http) {
+module.factory('API', ['Auth', '$q', '$http', '$rootScope', function(Auth, $q, $http, $rootScope) {
 
 	var baseUrl = 'https://api.spotify.com/v1';
 
@@ -506,4 +506,4 @@ module.factory('API', function(Auth, $q, $http) {
 		},
 
 	};
-});
+}]);

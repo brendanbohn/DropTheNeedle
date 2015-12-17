@@ -77,14 +77,14 @@ app.get('/set-current-account/user/:spotify_id', function (req, res) {
         } else {
         //if the user.length === 0 did not pass in the if statement above
         // it means that the user existed. Here we send back that existing user!
-          console.log("existing user!", user);
+          console.log("existing user!");
           res.send(user);
         }
       }
     });
   });
 
-
+//scores getting saved after user takes quiz
 var existingQuiz = "507f1f77bcf86cd799439011";
 app.post('/user/:spotify_id/quiz/:playlist_name/:playlist_id/:owner_id/result/:score/:possible_score', function (req, res) {
   console.log('INSIDE POST REQUEST');
@@ -128,7 +128,7 @@ app.post('/user/:spotify_id/quiz/:playlist_name/:playlist_id/:owner_id/result/:s
           });
 
         } else if (existingQuiz.playlist_id == req.params.playlist_id) {
-          console.log('req.params.score', req.params.score);
+          console.log("exising quiz, creating a result");
      
           Result.create({ score: req.params.score, possible_score: req.params.possible_score }, function (err, result) {
               if (err) {
@@ -143,16 +143,6 @@ app.post('/user/:spotify_id/quiz/:playlist_name/:playlist_id/:owner_id/result/:s
       }
     );
 });
-
-
-//if user found
-  //look for quizzes inside user
-  //if quiz not found
-    //create quiz, push into user, save user
-    //create result, push into quiz, save quiz
-  //if quiz found
-    //create result, push into quiz, save quiz
-
 
 
 

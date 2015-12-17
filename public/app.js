@@ -28,11 +28,11 @@ angular.module('myApp', ['ui.router',
             $location.url($location.url().replace('#','?'));
           }]
         }
+      })
         .state('dashboard', {
           url:"/dashboard",
           templateUrl: 'templates/dashboard',
           controller: 'DashboardController'
-        })
       });
 
     $urlRouterProvider.otherwise("/");
@@ -61,13 +61,11 @@ angular.module('myApp.controllers', [])
               $rootScope.spotifyUser = userInfo;
                 return userInfo;
             }).then(function(userInfo) {
-              var user = userInfo;
               UserPlaylists.getUserPlaylists(userInfo.id);
-
               //sets account if user exists and redirects to create-new-account if cant find this user
               $http({
                 method: 'GET',
-                url: '/set-current-account/user/' + user.id,
+                url: '/set-current-account/user/' + userInfo.id,
                 })
               .then(function success(response) {
                 console.log('success data is ', response.data[0]);
@@ -96,6 +94,18 @@ angular.module('myApp.controllers', [])
                 return userInfo;
             }).then(function(userInfo) {
               UserPlaylists.getUserPlaylists(userInfo.id);
+
+             //this request needs to be repeated for page refreshing purposes.
+              $http({
+                method: 'GET',
+                url: '/set-current-account/user/' + userInfo.id,
+                })
+              .then(function success(response) {
+                console.log('success data is ', response.data[0]);
+                $rootScope.activeAccount = response.data[0];
+              }, function error(response) {
+                console.log('error', response);
+              }); 
             
             });
 

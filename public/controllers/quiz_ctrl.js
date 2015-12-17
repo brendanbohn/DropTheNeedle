@@ -5,22 +5,24 @@ angular.module('myApp.controllers')
 
 	setupPlaylist();
 
-	// CREATES THE QUIZ TIMER
-	function quizTimer() {
-		$scope.counter = 30;
-		$scope.onTimeout = function(){
-		    $scope.counter--;
-		    mytimeout = $timeout($scope.onTimeout,1000);
-		};
-		var mytimeout = $timeout($scope.onTimeout,1000);
-	}
-
 	$scope.retakeQuiz = function () {
 		console.log('clicked retakeQuiz');
 		setupPlaylist();
 	};
 
 	function setupPlaylist() {
+		var timer = 0;
+		// CREATES THE QUIZ TIMER
+		function quizTimer() {
+			timer = 1;
+			$scope.counter = 30;
+			$scope.onTimeout = function(){
+			    $scope.counter--;
+			    mytimeout = $timeout($scope.onTimeout,1000);
+			    console.log("Timer: ", timer);
+			};
+			var mytimeout = $timeout($scope.onTimeout,1000);
+		}
 		//gets values from SearchController(search bar form)
 		$scope.game = true;
 		var user_id = PlaylistId.getOwnerId();
@@ -36,6 +38,10 @@ angular.module('myApp.controllers')
 		var currentlyPlaying = {};
 		var answerCount = 0;
 		$scope.score = 0;
+
+		if (timer === ($scope.gameLength*30)) {
+			console.log("Timer: ", timer);
+		}
 
 		quizTimer();
 

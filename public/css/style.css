@@ -139,6 +139,7 @@ nav a:visited {
  }
  .user-side {
  	border-right: 1px solid #404040;
+ 	height: 100vh;
  }
 .playlist-results a:hover {
 	text-decoration: none;
@@ -226,3 +227,27 @@ h3 {
 #quiz-form {
 	margin: 40px 0;
 }
+
+/* Dashboard View Styles */
+
+h3.dashboard-h3 {
+	margin: 0;
+	font-weight: 100;
+	text-align: center;
+}
+#dashboard-title {
+	font-weight: 100;
+	border-bottom: 1px solid #404040;
+	padding: 10px 0 20px 0;
+}
+.favorite-box {
+	border-right: 1px solid #404040;
+	height: 100vh;
+}
+.score-history {
+	padding-left: 20px;
+}
+.score-repeat {
+	padding-left: 40px;
+}
+

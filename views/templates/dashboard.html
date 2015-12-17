@@ -1,1 +1,33 @@
-<h1 class="text-center" id="username-title">Username</h1>
+<h2 class="text-center" id="dashboard-title">{{username}}'s Dashboard</h2>
+
+<div class="row">
+	<div class="col-sm-4 favorite-box">
+		<h3 class="dashboard-h3">Favorite Playlist</h3>
+		<p class="favorite-name">{{favorite.playlist_name}}</p>
+		
+		
+
+	</div>
+	<div class="col-sm-8">
+		<div class="row">
+			<h3 class="dashboard-h3">Games Played</h3>
+		</div>
+		<div class="row">
+			<div ng-repeat="quiz in quizzes" ng-click="setPlaylistScope(quiz.playlist_id, quiz.owner_id, quiz.playlist_name)">
+				<div class="col-sm-4">
+					<a ui-sref='quiz'>{{quiz.playlist_name}}</a>
+				</div>
+				<div class="col-sm-4">
+					<p class="score-history">Score History:
+					<li ng-repeat="result in quiz.results" class="score-repeat">
+					{{result.score}} out of {{result.possible_score}}</p>
+					</li>
+				</div>
+				<div class="col-sm-4">
+					<!-- make play again button -->
+				</div>
+			</div>
+			<hr>
+		</div>
+	</div>
+</div>

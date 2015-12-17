@@ -3,6 +3,7 @@ angular.module('myApp.controllers')
 .controller('QuizController', [ '$scope', '$http', '$window', 'Auth', 'API', 'PlaylistId','$rootScope', 'Playback', 'PlayQueue', '$q', '$timeout',
 	function ($scope, $http, $window, Auth, API, PlaylistId, $rootScope, Playback, PlayQueue, $q, $timeout) {
 
+
 	setupPlaylist();
 
 	$scope.retakeQuiz = function () {
@@ -23,9 +24,10 @@ angular.module('myApp.controllers')
 			};
 			var mytimeout = $timeout($scope.onTimeout,1000);
 		}
+
 		//gets values from SearchController(search bar form)
 		$scope.game = true;
-		var user_id = PlaylistId.getOwnerId();
+		var owner_id = PlaylistId.getOwnerId();
 		var playlist = PlaylistId.getPlaylistId();
 		var playlistName = PlaylistId.getPlaylistName();
 		$scope.playlistTitle = playlistName;
@@ -61,7 +63,7 @@ angular.module('myApp.controllers')
 		};
 
 		//gets the tracks for playlist clicked on search page
-		API.getPlaylistTracks(user_id, playlist).then(function (data) {
+		API.getPlaylistTracks(owner_id, playlist).then(function (data) {
 			console.log("getPlaylistTracks: ", data);
 			playlistTracks = data.items;
 			console.log('playlistTracks', playlistTracks);
@@ -155,7 +157,7 @@ angular.module('myApp.controllers')
 				// '/quiz/:playlist_name/:playlist_id/result/:score/:possible_score'
 				$http({
 					method: 'POST',
-					url: '/user/'+ $rootScope.activeAccount.spotify_id + '/quiz/' + playlistName + '/' + playlist + '/result/' + $scope.score + '/' + promiseArray.length,
+					url: '/user/'+ $rootScope.activeAccount.spotify_id + '/quiz/' + playlistName + '/' + playlist + '/' + owner_id +'/result/' + $scope.score + '/' + promiseArray.length,
 				}).then( function success(response) {
 
 				}, function error(response) {

@@ -186,6 +186,9 @@ h3 {
 
 
 /* QUIZ STYLING */
+#time-display {
+	margin:  0 0 25px 0;
+}
 #game-score {
 	margin: 25px 0;
 	font-weight: 100;
@@ -205,10 +208,6 @@ h3 {
 #game-ended h1 {
 	font-weight: 100;
 }
-/*#score-display {
-	height: 20px;
-	background-color: gray;
-}*/
 #try-again {
 	margin: 50px 0 0 0;
 }
@@ -224,13 +223,4 @@ h3 {
 }
 #quiz-form {
 	margin: 40px 0;
-}
-#score-display .styling {
-	color: gray;
-}
-#score-display .wrong {
-	color: red;
-}
-#score-display .correct {
-	color: green;
 }

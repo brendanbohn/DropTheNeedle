@@ -1,10 +1,10 @@
 <h1 class="text-center" id="quiz-playlist-title">Playlist title</h1>
-<div id="score-display" class="text-center">
-	<p id="quiz-timer-counter" >
-		{{ counter }}
-	</p>
-</div>
 <div id="quiz-form" ng-show="game">
+	<div id="time-display" class="text-center">
+		<p id="quiz-timer-counter" >
+			{{ counter }}
+		</p>
+	</div>
 	<form ng-submit="compareAnswer()" class="input-group col-sm-6 col-sm-offset-3">
 		<input type="text" class="form-control" ng-model="answer" placeholder="Artist" autofocus>
 		<span class="input-group-btn">

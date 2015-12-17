@@ -54,7 +54,7 @@
             <div class="text-center">
               <p class="text-center search-description">Search results for: <span id="search-term">{{ searchTerm }}</span></p>
             </div>
-            <div class="row">
+            <div class="row" id="search-stream">
               <div class="col-md-3 col-xs-6" ng-repeat="playlist in playlists">
                 <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id, playlist.name)" class="text-center">
                   <a ui-sref="quiz" >

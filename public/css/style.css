@@ -16,6 +16,7 @@ input {
 	color: #D9D7DB;	
 }
 
+
 /* LOGIN VIEW STYLES */
 
 
@@ -127,6 +128,15 @@ nav a:visited {
  	     -o-animation: fadein 2s; /* Opera < 12.1 */
  	        animation: fadein 2s;
  }
+ .search-description {
+ 	padding: 25px 0 0 0;
+ 	color: gray;
+ }
+ #search-term {
+ 	padding: 25px 0 0 5px; 
+ 	color: #D9D7DB !important;
+ 	background-color: none !important;
+ }
  .user-side {
  	border-right: 1px solid #404040;
  }
@@ -137,14 +147,14 @@ nav a:visited {
 .playlist-results p {
 	margin: 10px 0 20px 0;
 }
-.playlist-results span {
+.playlist-results .take-quiz {
 	cursor: pointer;
 	color: white;
 	background-color: #1ED760;
 	border-radius: 5px;
 	padding: 5px 10px;
 }
-.playlist-results span:hover {
+.playlist-results .take-quiz:hover {
 	color: #D9D7DB;
 	background-color: #4FC773;
 }
@@ -177,6 +187,9 @@ h3 {
 
 
 /* QUIZ STYLING */
+#time-display {
+	margin:  0 0 25px 0;
+}
 #game-score {
 	margin: 25px 0;
 	font-weight: 100;
@@ -196,14 +209,11 @@ h3 {
 #game-ended h1 {
 	font-weight: 100;
 }
-/*#score-display {
-	height: 20px;
-	background-color: gray;
-}*/
 #try-again {
 	margin: 50px 0 0 0;
 }
-#try-again a {
+#try-again #try-button {
+	cursor: pointer;
 	color: white;
 	background-color: #1ED760;
 	padding: 10px 20px;
@@ -215,13 +225,4 @@ h3 {
 }
 #quiz-form {
 	margin: 40px 0;
-}
-#score-display .styling {
-	color: gray;
-}
-#score-display .wrong {
-	color: red;
-}
-#score-display .correct {
-	color: green;
 }

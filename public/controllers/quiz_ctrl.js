@@ -2,8 +2,8 @@ angular.module('myApp.controllers')
 
 .controller('QuizController', [ '$scope', '$http', '$window', 'Auth', 'API', 'PlaylistId','$rootScope', 'Playback', 'PlayQueue', '$q', '$timeout',
 	function ($scope, $http, $window, Auth, API, PlaylistId, $rootScope, Playback, PlayQueue, $q, $timeout) {
-	
-	//gets vallues from SearchController(search bar form)
+
+	//gets values from SearchController(search bar form)
 	$scope.game = true;
 	var user_id = PlaylistId.getOwnerId();
 	var playlist = PlaylistId.getPlaylistId();
@@ -48,7 +48,8 @@ angular.module('myApp.controllers')
 					console.log("SPLICED");
 				}
 			}
-			$scope.gameLength = promiseArray.length;		
+			$scope.gameLength = promiseArray.length;
+			console.log("Game Length: ",$scope.gameLength);		
 			console.log('promiseArray', promiseArray);
 			$scope.promiseArray = promiseArray;
 			//plays the first track in the resolved promiseArray

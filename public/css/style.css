@@ -127,6 +127,15 @@ nav a:visited {
  	     -o-animation: fadein 2s; /* Opera < 12.1 */
  	        animation: fadein 2s;
  }
+ .search-description {
+ 	padding: 25px 0 0 0;
+ 	color: gray;
+ }
+ #search-term {
+ 	padding: 25px 0 0 5px; 
+ 	color: #D9D7DB !important;
+ 	background-color: none !important;
+ }
  .user-side {
  	border-right: 1px solid #404040;
  }
@@ -137,14 +146,14 @@ nav a:visited {
 .playlist-results p {
 	margin: 10px 0 20px 0;
 }
-.playlist-results span {
+.playlist-results .take-quiz {
 	cursor: pointer;
 	color: white;
 	background-color: #1ED760;
 	border-radius: 5px;
 	padding: 5px 10px;
 }
-.playlist-results span:hover {
+.playlist-results .take-quiz:hover {
 	color: #D9D7DB;
 	background-color: #4FC773;
 }

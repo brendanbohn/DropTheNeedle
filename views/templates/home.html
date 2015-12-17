@@ -47,7 +47,13 @@
             </div>
           </form>
           <!-- search results -->
-          <div class='playlist-results'>
+          <div ng-show="noResults" class="text-center">
+            <p class="text-center search-description">No playlist found for: <span id="search-term">{{searchTerm}}</span></p>
+          </div>
+          <div class='playlist-results' ng-show="searchResults">
+            <div class="text-center">
+              <p class="text-center search-description">Search results for: <span id="search-term">{{ searchTerm }}</span></p>
+            </div>
             <div class="row">
               <div class="col-md-3 col-xs-6" ng-repeat="playlist in playlists">
                 <div ng-click="setPlaylistScope(playlist.id, playlist.owner.id, playlist.name)" class="text-center">
@@ -55,7 +61,7 @@
                     <!-- <input type="hidden" value="{{playlist.id}}"> -->
                     <img ng-src="{{playlist.images[2].url}}">
                     <p>{{playlist.name}}</p>
-                    <span>Take Quiz</span>
+                    <span class="take-quiz">Take Quiz</span>
                   </a>
                 </div>
               </div>

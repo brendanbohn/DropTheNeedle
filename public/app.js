@@ -28,6 +28,11 @@ angular.module('myApp', ['ui.router',
             $location.url($location.url().replace('#','?'));
           }]
         }
+        .state('dashboard', {
+          url:"/dashboard",
+          templateUrl: 'templates/dashboard',
+          controller: 'DashboardController'
+        })
       });
 
     $urlRouterProvider.otherwise("/");

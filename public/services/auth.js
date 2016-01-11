@@ -44,9 +44,11 @@
 				);
 			},
 			getAccessToken: function() {
-				var expires = 0 + localStorage.getItem('pa_expires', '0');
+				var expires = 0 + localStorage.getItem('pa_expires', '');
+
 				if ((new Date()).getTime() > expires) {
-					return '';
+					console.log('expired');
+					return false;
 				}
 				var token = localStorage.getItem('pa_token', '');
 				return token;

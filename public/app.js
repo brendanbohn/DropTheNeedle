@@ -50,7 +50,34 @@ angular.module('myApp.controllers', [])
     function ($rootScope, $scope, Auth, $window, $http, API, UserPlaylists, PlaylistId) {
     // INITIALIZATION AND NAVBAR LOGIC
 
+    if(Auth.getAccessToken()) {
+      $rootScope.isLoggedIn = true;
+      console.log("outside message!");
+      API.getMe().then(function(userInfo){
+          $rootScope.spotifyUser = userInfo;
+            return userInfo;
+        }).then(function(userInfo) {
+          UserPlaylists.getUserPlaylists(userInfo.id);
+
+         //this request needs to be repeated for page refreshing purposes.
+          $http({
+            method: 'GET',
+            url: '/set-current-account/user/' + userInfo.id,
+            })
+          .then(function success(response) {
+            console.log('success data is ', response.data[0]);
+            $rootScope.activeAccount = response.data[0];
+          }, function error(response) {
+            console.log('error', response);
+          }); 
+        });
+        
+    } else {
+      $rootScope.isLoggedIn = false;
+    }
+
     $window.addEventListener("message", function(event) {
+    
       var hash = JSON.parse(event.data);
         if (hash.type == 'access_token') {
           Auth.setAccessToken(hash.access_token, hash.expires_in || 60);  
@@ -83,37 +110,20 @@ angular.module('myApp.controllers', [])
         }
       }, false);
 
-          if(Auth.getAccessToken()) {
-            $rootScope.isLoggedIn = true;
-          } else {
-            $rootScope.isLoggedIn = false;
-          }
 
-          API.getMe().then(function(userInfo){
-              $rootScope.spotifyUser = userInfo;
-                return userInfo;
-            }).then(function(userInfo) {
-              UserPlaylists.getUserPlaylists(userInfo.id);
+      //sets the playlist scope in the service to send to quiz controller to find quiz playlist
+      $scope.setPlaylistScope = function(playlist, owner) {
+        PlaylistId.setPlaylistId(playlist);
+        PlaylistId.setOwnerId(owner);
+      };
 
-             //this request needs to be repeated for page refreshing purposes.
-              $http({
-                method: 'GET',
-                url: '/set-current-account/user/' + userInfo.id,
-                })
-              .then(function success(response) {
-                console.log('success data is ', response.data[0]);
-                $rootScope.activeAccount = response.data[0];
-              }, function error(response) {
-                console.log('error', response);
-              }); 
-            
-            });
-
-            //sets the playlist scope in the service to send to quiz controller to find quiz playlist
-            $scope.setPlaylistScope = function(playlist, owner) {
-              PlaylistId.setPlaylistId(playlist);
-              PlaylistId.setOwnerId(owner);
-            };
+      //Logout
+      $scope.logout = function() {
+        console.log('AMEN');
+        $window.localStorage.removeItem('pa_token');
+        $window.localStorage.removeItem('pa_expires');
+        $rootScope.isLoggedIn = false;
+      };
 
 
   }]);

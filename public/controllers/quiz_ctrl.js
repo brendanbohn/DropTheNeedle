@@ -99,9 +99,14 @@ angular.module('myApp.controllers')
 				console.log('promiseArray', promiseArray);
 				$scope.promiseArray = promiseArray;
 				//plays the first track in the resolved promiseArray
-				createAndPlayAudio(promiseArray[0].$$state.value.preview_url);
-				currentlyPlaying = promiseArray[0].$$state.value;
-				console.log('currentlyPlaying', currentlyPlaying);
+				if ($scope.gameLength <= 5) {
+					$scope.game = false;
+					$scope.tooShort = true;
+				} else {
+					createAndPlayAudio(promiseArray[0].$$state.value.preview_url);
+					currentlyPlaying = promiseArray[0].$$state.value;
+					console.log('currentlyPlaying', currentlyPlaying);
+				}
 			});
 
 		});	
@@ -156,7 +161,7 @@ angular.module('myApp.controllers')
 				console.log("currentlyPlaying ", currentlyPlaying);
 			} else {
 				console.log('SCORE IS:' + $scope.score + 'out of:' + promiseArray.length);
-				$scope.game = false;
+				$scope.gameEnded = true;
 				//creating quiz and result in database
 				// '/quiz/:playlist_name/:playlist_id/result/:score/:possible_score'
 				$http({
@@ -172,7 +177,6 @@ angular.module('myApp.controllers')
 
 		//sets quiz length to a max of 20 songs. 
 		function shortenPlaylist (array) {
-		
 			if (array.length <= 20) {
 				shortenedPlaylist = array;
 			} else if (array.length > 20) {

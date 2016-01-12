@@ -19,7 +19,9 @@ angular.module('myApp', ['ui.router',
         templateUrl: 'templates/quiz',
         controller: 'QuizController',
         onExit: function ($rootScope) {
-          $rootScope.audiotag.src = null;
+          if($rootScope.audiotag) {
+            $rootScope.audiotag.src = null;
+          }
         }
       })
       .state('callback', {

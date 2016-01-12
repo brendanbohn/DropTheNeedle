@@ -115,23 +115,23 @@ angular.module('myApp.controllers')
 			$scope.counter = 30;
 			console.log('createAndPlayAudio', url);
 			//resets any previous audiotag(and events related to it)
-			if($scope.audiotag) {
-				$scope.audiotag = null;
+			if($rootScope.audiotag) {
+				$rootScope.audiotag = null;
 			}
 			//creates a new Audio tag
-			$scope.audiotag = new Audio();
+			$rootScope.audiotag = new Audio();
 			//sets the audio url to the spotify preview url 
-			$scope.audiotag.src = url;
+			$rootScope.audiotag.src = url;
 
 			//when url is loaded sound will start playing
-			$scope.audiotag.addEventListener('loadedmetadata', function() {
+			$rootScope.audiotag.addEventListener('loadedmetadata', function() {
 				console.log('audiotag loadedmetadata');
-				_duration = $scope.audiotag.duration * 1000.0;
-				$scope.audiotag.volume = _volume / 100.0;
-				$scope.audiotag.play();
+				_duration = $rootScope.audiotag.duration * 1000.0;
+				$rootScope.audiotag.volume = _volume / 100.0;
+				$rootScope.audiotag.play();
 			}, false);
 			//when track sound is done playing it will play next song (only if there is a next song)
-			$scope.audiotag.addEventListener('ended', function () {
+			$rootScope.audiotag.addEventListener('ended', function () {
 				console.log('audiotag ended');
 
 				playNextSong();
@@ -141,9 +141,9 @@ angular.module('myApp.controllers')
 
 		//checks length of current playlist and plays next track in promiseArray
 		function playNextSong () {
-			if($scope.audiotag){
-				$scope.audiotag.pause();
-				$scope.audiotag = null;
+			if($rootScope.audiotag){
+				$rootScope.audiotag.pause();
+				$rootScope.audiotag = null;
 			}
 			if(position < promiseArray.length - 1){
 				position = position + 1;

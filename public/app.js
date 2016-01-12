@@ -17,7 +17,10 @@ angular.module('myApp', ['ui.router',
       .state('quiz', {
         url:"/quiz/:playlist_id",
         templateUrl: 'templates/quiz',
-        controller: 'QuizController'
+        controller: 'QuizController',
+        onExit: function ($rootScope) {
+          $rootScope.audiotag.src = null;
+        }
       })
       .state('callback', {
         url:"/callback",

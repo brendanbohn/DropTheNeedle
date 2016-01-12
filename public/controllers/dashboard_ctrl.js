@@ -1,6 +1,10 @@
 angular.module('myApp.controllers')
 .controller('DashboardController', ['$rootScope', '$scope' , '$http' , 'API', 'UserPlaylists', 'PlaylistId', 'Auth',function ($rootScope, $scope, $http, API, UserPlaylists, PlaylistId, Auth) {
 
+	// this conditional below is duplicate in the Main Controller.
+	// we need to figure out a way to get current user async with one request from 
+	// controller. Service or Factory? How do we make it persist a refresh?
+	
 	if(Auth.getAccessToken()) {
 	  $rootScope.isLoggedIn = true;
 

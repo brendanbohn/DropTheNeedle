@@ -66,17 +66,21 @@ angular.module('myApp.controllers')
 		API.getPlaylistTracks(owner_id, playlist).then(function (data) {
 			console.log("getPlaylistTracks: ", data);
 			playlistTracks = data.items;
+			console.log(data.items);
 			console.log('playlistTracks', playlistTracks);
 			//this function will set the quiz max to 20 and return the shortenedPlaylist
 			shortenPlaylist(playlistTracks);
 			console.log('shortenedPlaylist', shortenedPlaylist);
 			//creates an array with the URIs(track id's) needed to get tracks external API
 			shortenedPlaylist.forEach( function(object){
+
 				var trackURI = object.track.uri.split(':')[2];
-				shortenedPlaylistURIs.push(trackURI);
+				if(!isNaN(trackURI.substring(0,1))) {
+					shortenedPlaylistURIs.push(trackURI);
+				}
 			});
 			console.log('shortenedPlaylistURIs', shortenedPlaylistURIs);
-			//requests all the tracks in the array or URIs and pushes all the promises into and array
+			//requests all the tracks in the array or URIs and pushes all the promises into an array
 			for(var i = 0; i < shortenedPlaylistURIs.length; i++) {
 				promiseArray.push(API.getTrack(shortenedPlaylistURIs[i]));
 			}
@@ -170,7 +174,7 @@ angular.module('myApp.controllers')
 		function shortenPlaylist (array) {
 		
 			if (array.length <= 20) {
-				shortenedPlaylist.concat(array);
+				shortenedPlaylist = array;
 			} else if (array.length > 20) {
 				for (var i = 0; i < 20; i++) {
 					var j =	getRandomInt(0, array.length);

@@ -15,7 +15,10 @@
 		<p id="game-score">Score: {{score}} / {{gameLength}}</p>
 	</div>
 </div>
-<div id="game-ended" ng-hide="game">
+<div id="too-short" ng-show="tooShort" class="text-center">
+	<p>Not enough tracks are available to play for this Playlist.</p>
+</div>
+<div id="game-ended" ng-show="gameEnded">
 	<div class="text-center">
 		<h1>You got {{score}} out of {{gameLength}} right!</h1>
 		<div id="try-again">

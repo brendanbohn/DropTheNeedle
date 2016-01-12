@@ -208,8 +208,11 @@ module.factory('API', ['Auth', '$q', '$http', '$rootScope', function(Auth, $q, $
 					'Authorization': 'Bearer ' + Auth.getAccessToken()
 				}
 			}).success(function(r) {
-				console.log('got track', r);
+				// console.log('got track', r);
 				ret.resolve(r);
+			}).error(function(error) {
+				console.log('ERRORRRR', error);
+				return false;
 			});
 			return ret.promise;
 		},

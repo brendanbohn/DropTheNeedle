@@ -19,7 +19,9 @@ angular.module('myApp', ['ui.router',
         templateUrl: 'templates/quiz',
         controller: 'QuizController',
         onExit: function ($rootScope) {
-          $rootScope.audiotag.src = null;
+          if($rootScope.audiotag) {
+            $rootScope.audiotag.src = null;
+          }
         }
       })
       .state('callback', {
@@ -115,9 +117,10 @@ angular.module('myApp.controllers', [])
 
 
       //sets the playlist scope in the service to send to quiz controller to find quiz playlist
-      $scope.setPlaylistScope = function(playlist, owner) {
-        PlaylistId.setPlaylistId(playlist);
+      $scope.setPlaylistScope = function(playlistId, owner, playlistName) {
+        PlaylistId.setPlaylistId(playlistId);
         PlaylistId.setOwnerId(owner);
+        PlaylistId.setPlaylistName(playlistName);
       };
 
       //Logout
